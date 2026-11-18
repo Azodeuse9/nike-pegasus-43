@@ -17,8 +17,15 @@ export default function AddToBag({ selectedVariant }: AddToBagProps) {
   const isDisabled =
     !selectedVariant || selectedVariant.stock_status === "sold_out";
 
-  const handleAdd = () => {
-    if (isDisabled || !selectedVariant) return;
+  const handleAction = () => {
+    if (isDisabled) {
+      // If no size is selected yet, smoothly scroll to size grid
+      const sizeGrid = document.querySelector('[data-testid="size-grid"]');
+      if (sizeGrid) {
+        sizeGrid.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      return;
+    }
 
     setIsAdding(true);
 
@@ -70,23 +77,49 @@ export default function AddToBag({ selectedVariant }: AddToBagProps) {
         </div>
       )}
 
-      {/* Sticky Bottom Bar with Safe-Area insets */}
-      <div className="sticky bottom-0 z-30 w-full bg-white/95 backdrop-blur-md border-t border-[#E5E5E5] px-5 py-3.5 pb-[max(0.875rem,env(safe-area-inset-bottom))] shadow-lg">
-        <div className="max-w-[430px] mx-auto">
+      {/* Fixed Sticky Bottom Bar at 844 frame bottom with exactly 24px bottom gapping */}
+      <div
+        className="fixed bottom-0 left-0 right-0 z-30 w-full max-w-[430px] mx-auto bg-white/95 backdrop-blur-md border-t border-[#E5E5E5] px-5 pt-3 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] transition-all"
+        style={{ paddingBottom: "24px" }}
+      >
+        <div className="max-w-[430px] mx-auto flex flex-col gap-2">
+          {/* When a size is selected, show concise confirmation above the button */}
+          {selectedVariant && (
+            <div className="flex items-center justify-between text-[11px] px-1 animate-fade-in">
+              <span className="text-[#111111] font-semibold">
+                Selected: <span className="font-bold">EU {selectedVariant.size_eu}</span>{" "}
+                <span className="text-[#707070] font-normal">
+                  (M {selectedVariant.size_us_men} / W {selectedVariant.size_us_women})
+                </span>
+              </span>
+              {selectedVariant.stock_status === "low_stock" ? (
+                <span className="text-[#B77900] font-bold text-[10px] bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                  Only {selectedVariant.stock_quantity} left
+                </span>
+              ) : (
+                <span className="text-[#16803C] font-semibold text-[10px] bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                  In Stock
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* Full-width 54px button sticked with 24px bottom gapping */}
           <button
             type="button"
-            disabled={isDisabled}
-            onClick={handleAdd}
+            data-testid="add-to-bag-button"
+            disabled={isDisabled && isAdding}
+            onClick={handleAction}
             className={`w-full h-[54px] rounded-full text-base font-bold flex items-center justify-center gap-2.5 transition-all duration-200 select-none box-border focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 ${
               isDisabled
-                ? "bg-[#F5F5F5] text-[#A3A3A3] cursor-not-allowed border border-[#E5E5E5]"
+                ? "bg-[#F5F5F5] text-[#707070] hover:text-[#111111] hover:border-[#111111] cursor-pointer border border-[#E5E5E5] active:scale-[0.99]"
                 : isAdding
                 ? "bg-[#C7F000] text-[#111111] scale-[0.99]"
                 : "bg-[#111111] text-white hover:bg-neutral-800 active:scale-[0.98] shadow-md"
             }`}
             aria-label={
               isDisabled
-                ? "Select a size to enable Add to Bag"
+                ? "Select Size (tap to choose size)"
                 : `Add ${productInfo.name} size EU ${selectedVariant?.size_eu} to bag for $${productInfo.price}`
             }
           >

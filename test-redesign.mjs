@@ -189,7 +189,7 @@ async function testAll() {
 
   // 9. Click Add to Bag
   console.log('Clicking Add to Bag button...');
-  await page.click('div.sticky button[type="button"]');
+  await page.click('[data-testid="add-to-bag-button"]');
   await new Promise(r => setTimeout(r, 400));
 
   const bagState = await page.evaluate(() => {

@@ -25,8 +25,8 @@ export default function Home() {
         {/* Navigation Header */}
         <Header />
 
-        {/* Main Product Content */}
-        <main className="w-full px-5 pt-3 pb-8 flex flex-col flex-1">
+        {/* Main Product Content with reserved space for fixed bottom bar */}
+        <main className="w-full px-5 pt-3 pb-32 flex flex-col flex-1">
           {/* 1. Product Gallery with Actual Photography */}
           <ProductGallery />
 
