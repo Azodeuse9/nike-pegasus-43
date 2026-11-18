@@ -2,30 +2,35 @@ import { productInfo } from "@/data/inventory";
 
 export default function ProductInformation() {
   return (
-    <section
-      aria-label="Product overview"
-      className="w-full max-w-[343px] mx-auto mt-4 h-[88px] flex flex-col justify-between"
-    >
-      <div>
-        <div className="flex items-baseline justify-between">
-          <h1 className="text-2xl font-black tracking-tight text-neutral-900 leading-none">
-            {productInfo.name}
-          </h1>
-          <span
-            data-testid="product-price"
-            className="text-xl font-bold text-neutral-900"
-          >
-            ${productInfo.price}
-          </span>
-        </div>
-        <p className="text-sm font-medium text-neutral-600 mt-1">
-          {productInfo.colorway}
-        </p>
+    <section aria-label="Product details overview" className="w-full max-w-[430px] mx-auto mt-4">
+      {/* Category Tag */}
+      <span className="text-xs font-semibold tracking-wider text-[#707070] uppercase block mb-1">
+        {productInfo.category}
+      </span>
+
+      {/* Title & Price Header Row */}
+      <div className="flex items-baseline justify-between gap-4">
+        <h1 className="text-[26px] sm:text-[28px] font-bold tracking-tight text-[#111111] leading-tight">
+          {productInfo.name}
+        </h1>
+        <span
+          data-testid="product-price"
+          className="text-[24px] sm:text-[26px] font-bold text-[#111111] shrink-0"
+        >
+          ${productInfo.price}
+        </span>
       </div>
 
-      <div className="flex items-center justify-between text-[11px] text-neutral-400 font-mono border-t border-neutral-100 pt-1.5">
+      {/* Colorway */}
+      <p className="text-sm font-medium text-[#707070] mt-1">
+        {productInfo.colorway}
+      </p>
+
+      {/* Style & Launch Date */}
+      <div className="flex items-center gap-3 text-xs text-[#A3A3A3] mt-2 font-mono">
         <span>Style: {productInfo.styleCode}</span>
-        <span>Launch: {productInfo.launchDate}</span>
+        <span>&bull;</span>
+        <span>Launching {productInfo.launchDate}</span>
       </div>
     </section>
   );

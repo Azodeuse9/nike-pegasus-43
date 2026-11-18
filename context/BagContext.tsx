@@ -1,44 +1,108 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
 
-interface BagItem {
+export interface BagItem {
   sku: string;
-  size_label: string;
+  productName: string;
+  sizeLabel: string;
+  sizeEu: string;
+  price: number;
   quantity: number;
+  image?: string;
 }
 
 interface BagContextType {
   items: BagItem[];
   count: number;
-  addItem: (sku: string, sizeLabel: string) => void;
+  isBagOpen: boolean;
+  setIsBagOpen: (open: boolean) => void;
+  addItem: (item: {
+    sku: string;
+    productName?: string;
+    sizeLabel: string;
+    sizeEu?: string;
+    price?: number;
+    image?: string;
+  }) => void;
+  removeItem: (sku: string) => void;
+  clearBag: () => void;
 }
 
 const BagContext = createContext<BagContextType>({
   items: [],
   count: 0,
+  isBagOpen: false,
+  setIsBagOpen: () => {},
   addItem: () => {},
+  removeItem: () => {},
+  clearBag: () => {},
 });
 
 export function BagProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<BagItem[]>([]);
   const [count, setCount] = useState(0);
+  const [isBagOpen, setIsBagOpen] = useState(false);
 
-  const addItem = useCallback((sku: string, sizeLabel: string) => {
-    setItems((prev) => {
-      const existing = prev.find((item) => item.sku === sku);
-      if (existing) {
-        return prev.map((item) =>
-          item.sku === sku ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      }
-      return [...prev, { sku, size_label: sizeLabel, quantity: 1 }];
-    });
-    setCount((prev) => prev + 1);
+  // Recalculate total item count
+  useEffect(() => {
+    const total = items.reduce((sum, item) => sum + item.quantity, 0);
+    setCount(total);
+  }, [items]);
+
+  const addItem = useCallback(
+    (item: {
+      sku: string;
+      productName?: string;
+      sizeLabel: string;
+      sizeEu?: string;
+      price?: number;
+      image?: string;
+    }) => {
+      setItems((prev) => {
+        const existing = prev.find((i) => i.sku === item.sku);
+        if (existing) {
+          return prev.map((i) =>
+            i.sku === item.sku ? { ...i, quantity: i.quantity + 1 } : i
+          );
+        }
+        return [
+          ...prev,
+          {
+            sku: item.sku,
+            productName: item.productName || "Nike Pegasus 43",
+            sizeLabel: item.sizeLabel,
+            sizeEu: item.sizeEu || "",
+            price: item.price || 140,
+            quantity: 1,
+            image: item.image || "/assets/pegasus-lateral.webp",
+          },
+        ];
+      });
+    },
+    []
+  );
+
+  const removeItem = useCallback((sku: string) => {
+    setItems((prev) => prev.filter((item) => item.sku !== sku));
+  }, []);
+
+  const clearBag = useCallback(() => {
+    setItems([]);
   }, []);
 
   return (
-    <BagContext.Provider value={{ items, count, addItem }}>
+    <BagContext.Provider
+      value={{
+        items,
+        count,
+        isBagOpen,
+        setIsBagOpen,
+        addItem,
+        removeItem,
+        clearBag,
+      }}
+    >
       {children}
     </BagContext.Provider>
   );

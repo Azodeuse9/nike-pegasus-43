@@ -15,20 +15,19 @@ export interface ProductVariant {
   launch_date: string;
 }
 
+export type SizeFormat = "EU" | "US_MEN" | "US_WOMEN";
+
 export const productInfo = {
   name: "Nike Pegasus 43",
-  colorway: "Black/White-Volt",
+  category: "Running",
+  colorway: "Black / White-Volt",
   price: 140,
   styleCode: "HV7521-001",
-  launchDate: "2026-12-10",
+  launchDate: "December 10, 2026",
+  launchDateIso: "2026-12-10",
 } as const;
 
-// Inventory Verification:
-// Total variants: 26
-// In stock (stock_status === "in_stock"): 17
-// Low stock (stock_status === "low_stock"): 5 (EU: 36, 42.5, 43, 45, 49.5)
-// Sold out (stock_status === "sold_out"): 4 (EU: 35.5, 44, 50, 50.5)
-
+// Single source of truth: 26 variants exactly as provided in the JSON
 export const inventory: ProductVariant[] = [
   { sku: "HV7521-001-035", style_code: "HV7521-001", product_name: "Nike Pegasus 43", colorway: "Black/White-Volt", price: 140.00, size_label: "M 3.5 / W 5", size_us_men: 3.5, size_us_women: 5.0, size_eu: "35.5", display_order: 1, in_stock: false, stock_quantity: 0, stock_status: "sold_out", launch_date: "2026-12-10" },
   { sku: "HV7521-001-040", style_code: "HV7521-001", product_name: "Nike Pegasus 43", colorway: "Black/White-Volt", price: 140.00, size_label: "M 4 / W 5.5", size_us_men: 4.0, size_us_women: 5.5, size_eu: "36", display_order: 2, in_stock: true, stock_quantity: 4, stock_status: "low_stock", launch_date: "2026-12-10" },
@@ -57,3 +56,35 @@ export const inventory: ProductVariant[] = [
   { sku: "HV7521-001-155", style_code: "HV7521-001", product_name: "Nike Pegasus 43", colorway: "Black/White-Volt", price: 140.00, size_label: "M 15.5 / W 17", size_us_men: 15.5, size_us_women: 17.0, size_eu: "50", display_order: 25, in_stock: false, stock_quantity: 0, stock_status: "sold_out", launch_date: "2026-12-10" },
   { sku: "HV7521-001-160", style_code: "HV7521-001", product_name: "Nike Pegasus 43", colorway: "Black/White-Volt", price: 140.00, size_label: "M 16 / W 17.5", size_us_men: 16.0, size_us_women: 17.5, size_eu: "50.5", display_order: 26, in_stock: false, stock_quantity: 0, stock_status: "sold_out", launch_date: "2026-12-10" },
 ];
+
+// Dynamically calculated inventory summary from the source data
+export const inventorySummary = {
+  total: inventory.length,
+  inStock: inventory.filter((v) => v.stock_status === "in_stock").length,
+  lowStock: inventory.filter((v) => v.stock_status === "low_stock").length,
+  soldOut: inventory.filter((v) => v.stock_status === "sold_out").length,
+  lowStockEuSizes: inventory.filter((v) => v.stock_status === "low_stock").map((v) => v.size_eu),
+  soldOutEuSizes: inventory.filter((v) => v.stock_status === "sold_out").map((v) => v.size_eu),
+};
+
+// Returns initial 8 sizes (display_order 8 through 15)
+export function getInitialSizes(): ProductVariant[] {
+  return inventory.filter((v) => v.display_order >= 8 && v.display_order <= 15);
+}
+
+// Formats a variant's primary size display based on selected format
+export function getFormattedSize(variant: ProductVariant, format: SizeFormat): string {
+  switch (format) {
+    case "EU":
+      return variant.size_eu;
+    case "US_MEN":
+      return variant.size_us_men.toString();
+    case "US_WOMEN":
+      return variant.size_us_women.toString();
+  }
+}
+
+// Returns the full size string for a variant
+export function getFullSizeLabel(variant: ProductVariant): string {
+  return `EU ${variant.size_eu} · US M ${variant.size_us_men} · US W ${variant.size_us_women}`;
+}

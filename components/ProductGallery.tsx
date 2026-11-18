@@ -1,128 +1,246 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, TouchEvent } from "react";
+import Image from "next/image";
+
+interface GallerySlide {
+  src: string;
+  alt: string;
+  label: string;
+}
+
+const GALLERY_SLIDES: GallerySlide[] = [
+  {
+    src: "/assets/pegasus-lateral.webp",
+    alt: "Nike Pegasus 43 lateral profile view in Black / White-Volt showing engineered mesh, volt gradient midsole and black swoosh",
+    label: "Lateral Profile",
+  },
+  {
+    src: "/assets/pegasus-pair.webp",
+    alt: "Nike Pegasus 43 three-quarter pair perspective showing toe box and lacing system",
+    label: "Pair Angle",
+  },
+  {
+    src: "/assets/pegasus-medial.webp",
+    alt: "Nike Pegasus 43 medial arch view showing supportive inner midsole cushioning",
+    label: "Medial Profile",
+  },
+  {
+    src: "/assets/pegasus-outsole.webp",
+    alt: "Nike Pegasus 43 waffle-inspired rubber outsole traction pods in volt and white",
+    label: "Outsole Traction",
+  },
+  {
+    src: "/assets/pegasus-detail-1.png",
+    alt: "Nike Pegasus 43 overhead view showing padded tongue, footbed and volt Zoom insole",
+    label: "Top-Down Footbed",
+  },
+];
 
 export default function ProductGallery() {
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
 
-  const views = [
-    { label: "Lateral Profile", angle: "Side view showing Pegasus 43 silhouette in Black/White-Volt" },
-    { label: "Medial Profile", angle: "Inner arch view with Volt accent detailing" },
-    { label: "Outsole Traction", angle: "Waffle-inspired outsole pattern view" },
-  ];
+  const total = GALLERY_SLIDES.length;
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % total);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + total) % total);
+  };
+
+  const handleTouchStart = (e: TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 45) {
+      nextSlide();
+    } else if (diff < -45) {
+      prevSlide();
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
+  const activeImage = GALLERY_SLIDES[currentSlide];
 
   return (
-    <section
-      aria-label="Product photography gallery"
-      className="w-full max-w-[343px] mx-auto pt-2"
-    >
-      {/* 343px × 343px 1:1 Square Container with explicit reserved dimensions to prevent CLS */}
-      <div
-        data-testid="product-main-image"
-        className="w-[343px] h-[343px] max-w-full aspect-square bg-gradient-to-b from-neutral-100 to-neutral-200/80 rounded-2xl relative overflow-hidden flex flex-col items-center justify-between p-4 border border-neutral-200/60 shadow-inner select-none"
+    <>
+      <section
+        aria-label="Nike Pegasus 43 product photo gallery"
+        className="w-full max-w-[430px] mx-auto select-none"
       >
-        {/* Placeholder identification badge */}
-        <div className="w-full flex items-center justify-between text-[11px] font-semibold tracking-wider text-neutral-500 uppercase">
-          <span className="bg-white/80 backdrop-blur px-2.5 py-1 rounded-full border border-neutral-200/80 shadow-sm">
-            Product Placeholder
+        {/* Main Gallery Card: 18px rounded corners, #F5F5F5 light neutral grey bg, 1:1 aspect ratio */}
+        <div
+          data-testid="main-product-image"
+          className="relative w-full aspect-square bg-[#F5F5F5] rounded-[18px] overflow-hidden flex items-center justify-center border border-[#E5E5E5]/60 group"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Backwards-compatibility test attribute */}
+          <span data-testid="product-main-image" className="sr-only">
+            {activeImage.alt}
           </span>
-          <span className="bg-lime-400/90 text-neutral-900 px-2 py-0.5 rounded-full text-[10px] font-bold tracking-tight shadow-sm">
-            VOLT ACCENT
-          </span>
-        </div>
 
-        {/* Sneaker Graphic / Silhouette */}
-        <div className="relative w-full h-[180px] flex items-center justify-center">
-          {/* Subtle glow / drop shadow under shoe */}
-          <div className="absolute bottom-2 w-48 h-5 bg-black/15 rounded-full blur-md" />
+          {/* Top Left: Small NEW Badge */}
+          <div className="absolute top-4 left-4 z-10 flex items-center gap-1.5">
+            <span className="bg-[#111111] text-white text-[10px] font-bold tracking-wider px-2.5 py-1 rounded-full uppercase shadow-xs">
+              New
+            </span>
+            <span className="bg-[#C7F000] text-[#111111] text-[10px] font-bold tracking-tight px-2 py-0.5 rounded-full uppercase shadow-xs">
+              Volt
+            </span>
+          </div>
 
-          {/* Detailed SVG Sneaker Graphic representing Black/White-Volt Pegasus 43 */}
-          <svg
-            viewBox="0 0 400 200"
-            className="w-full h-full max-h-[160px] drop-shadow-md"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Outsole: Volt/Lime traction pods */}
-            <path
-              d="M60 155 C100 156, 170 156, 220 154 C260 152, 320 155, 345 140 C348 138, 350 134, 344 135 C310 144, 250 142, 210 143 C150 144, 90 146, 60 155 Z"
-              fill="#CEFF00"
-            />
-            {/* Midsole: Sculpted white performance foam */}
-            <path
-              d="M50 148 C90 150, 160 150, 210 148 C270 146, 330 142, 350 128 C354 125, 348 120, 335 120 C290 122, 240 123, 190 124 C140 125, 80 128, 50 138 C44 140, 44 147, 50 148 Z"
-              fill="#FFFFFF"
-              stroke="#E5E7EB"
-              strokeWidth="1.5"
-            />
-            {/* Midsole Volt Accent wedge */}
-            <path
-              d="M170 140 C210 139, 270 137, 310 132 C300 136, 230 142, 170 140 Z"
-              fill="#CEFF00"
-            />
-            {/* Upper: Engineered breathable black mesh */}
-            <path
-              d="M50 138 C45 130, 60 95, 110 88 C135 84, 160 92, 185 86 C210 80, 230 55, 260 50 C280 47, 295 62, 285 85 C295 90, 325 105, 342 120 C348 125, 340 130, 335 128 C280 122, 230 124, 180 124 C120 125, 75 130, 50 138 Z"
-              fill="#18181B"
-            />
-            {/* Collar & Tongue (Volt interior lining) */}
-            <path
-              d="M230 55 C245 52, 265 52, 270 65 C265 75, 245 78, 230 80 Z"
-              fill="#CEFF00"
-            />
-            {/* Lacing system & eyelet stays */}
-            <path
-              d="M185 86 L205 92 M195 80 L218 86 M208 72 L230 78 M220 65 L242 70"
-              stroke="#FFFFFF"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            />
-            {/* Iconic Nike Swoosh in Crisp White */}
-            <path
-              d="M315 88 C275 108, 200 122, 140 114 C122 112, 118 108, 126 106 C144 102, 195 96, 230 84 C255 75, 290 62, 315 88 Z"
-              fill="#FFFFFF"
-            />
-            {/* Mini Volt Swoosh accent */}
-            <path
-              d="M150 118 C175 116, 205 112, 220 106 C210 110, 185 116, 150 118 Z"
-              fill="#CEFF00"
-            />
-          </svg>
-        </div>
-
-        {/* Caption & angle info */}
-        <div className="w-full text-center pb-1">
-          <p className="text-[12px] font-medium text-neutral-700 leading-tight">
-            Nike Pegasus 43 · Black/White-Volt
-          </p>
-          <p className="text-[10px] text-neutral-400 mt-0.5">
-            {views[activeSlide].label} &bull; Official photography awaiting launch
-          </p>
-        </div>
-      </div>
-
-      {/* Carousel dots navigation for multi-angle preview */}
-      <div
-        className="flex items-center justify-center gap-2 mt-2.5 h-4"
-        role="tablist"
-        aria-label="Gallery slide controls"
-      >
-        {views.map((view, index) => (
+          {/* Top Right: Fullscreen Viewer Control */}
           <button
-            key={view.label}
             type="button"
-            role="tab"
-            aria-selected={activeSlide === index}
-            aria-label={`View ${index + 1}: ${view.label}`}
-            onClick={() => setActiveSlide(index)}
-            className={`transition-all duration-200 rounded-full ${
-              activeSlide === index
-                ? "w-6 h-2 bg-black"
-                : "w-2 h-2 bg-neutral-300 hover:bg-neutral-400"
-            }`}
-          />
-        ))}
-      </div>
-    </section>
+            aria-label="View full screen image"
+            onClick={() => setIsFullscreen(true)}
+            className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white/80 backdrop-blur-xs text-[#111111] hover:bg-white flex items-center justify-center transition-all shadow-xs active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15m11.25-11.25h-4.5m4.5 0v4.5m0-4.5L15 9m4.5 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+            </svg>
+          </button>
+
+          {/* Centered Large Shoe Image with object-fit: contain (no cropping, no distortion) */}
+          <div className="relative w-[85%] h-[85%] flex items-center justify-center transition-transform duration-300">
+            <Image
+              src={activeImage.src}
+              alt={activeImage.alt}
+              fill
+              sizes="(max-width: 430px) 350px, 400px"
+              priority={currentSlide === 0}
+              className="object-contain drop-shadow-sm select-none"
+            />
+          </div>
+
+          {/* Previous Slide Button */}
+          <button
+            type="button"
+            aria-label="Previous image"
+            onClick={prevSlide}
+            className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 backdrop-blur-xs text-[#111111] hover:bg-white flex items-center justify-center shadow-xs transition-opacity opacity-75 hover:opacity-100 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+
+          {/* Next Slide Button */}
+          <button
+            type="button"
+            aria-label="Next image"
+            onClick={nextSlide}
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 backdrop-blur-xs text-[#111111] hover:bg-white flex items-center justify-center shadow-xs transition-opacity opacity-75 hover:opacity-100 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          {/* Bottom Right: Image Counter */}
+          <div className="absolute bottom-3 right-3 bg-white/80 backdrop-blur-xs px-2 py-0.5 rounded-full text-[11px] font-semibold text-[#707070] shadow-xs">
+            {currentSlide + 1} / {total}
+          </div>
+        </div>
+
+        {/* Gallery Pagination Dots */}
+        <div
+          role="tablist"
+          aria-label="Product photography thumbnails"
+          className="flex items-center justify-center gap-1.5 mt-3 h-3"
+        >
+          {GALLERY_SLIDES.map((slide, idx) => (
+            <button
+              key={slide.label}
+              type="button"
+              role="tab"
+              aria-selected={currentSlide === idx}
+              aria-label={`View ${slide.label}`}
+              onClick={() => setCurrentSlide(idx)}
+              className={`transition-all duration-200 rounded-full ${
+                currentSlide === idx
+                  ? "w-6 h-1.5 bg-[#111111]"
+                  : "w-1.5 h-1.5 bg-[#E5E5E5] hover:bg-[#A3A3A3]"
+              }`}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Fullscreen Modal View */}
+      {isFullscreen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Full screen photo viewer"
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col justify-between p-4 animate-fade-in"
+          onClick={() => setIsFullscreen(false)}
+        >
+          <div className="flex items-center justify-between text-white text-sm">
+            <span className="font-semibold">{activeImage.label} ({currentSlide + 1} of {total})</span>
+            <button
+              type="button"
+              aria-label="Close full screen"
+              onClick={() => setIsFullscreen(false)}
+              className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20"
+            >
+              &times;
+            </button>
+          </div>
+
+          <div
+            className="relative w-full max-w-2xl h-[70vh] mx-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={activeImage.src}
+              alt={activeImage.alt}
+              fill
+              className="object-contain"
+            />
+          </div>
+
+          <div className="flex items-center justify-center gap-4 text-white pb-4">
+            <button
+              type="button"
+              aria-label="Previous full screen photo"
+              onClick={(e) => {
+                e.stopPropagation();
+                prevSlide();
+              }}
+              className="px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 text-xs font-semibold"
+            >
+              &larr; Previous
+            </button>
+            <button
+              type="button"
+              aria-label="Next full screen photo"
+              onClick={(e) => {
+                e.stopPropagation();
+                nextSlide();
+              }}
+              className="px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 text-xs font-semibold"
+            >
+              Next &rarr;
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

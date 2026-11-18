@@ -1,20 +1,28 @@
 "use client";
 
-import { ProductVariant } from "@/data/inventory";
+import { ProductVariant, SizeFormat, getFormattedSize } from "@/data/inventory";
 
 interface SizeTileProps {
   variant: ProductVariant;
+  format: SizeFormat;
   isSelected: boolean;
   onSelect: (sku: string) => void;
 }
 
-export default function SizeTile({ variant, isSelected, onSelect }: SizeTileProps) {
+export default function SizeTile({
+  variant,
+  format,
+  isSelected,
+  onSelect,
+}: SizeTileProps) {
   const isSoldOut = variant.stock_status === "sold_out";
   const isLowStock = variant.stock_status === "low_stock";
+  const formattedSize = getFormattedSize(variant, format);
 
-  // Build accessible label
+  // Dynamic accessible label
   const accessibleLabel = [
-    `US Men ${variant.size_us_men}, US Women ${variant.size_us_women}, EU ${variant.size_eu}`,
+    `Size ${formattedSize} (${format === "EU" ? "EU" : format === "US_MEN" ? "US Men" : "US Women"})`,
+    `Full sizing: EU ${variant.size_eu}, US Men ${variant.size_us_men}, US Women ${variant.size_us_women}`,
     isSoldOut
       ? "Sold out"
       : isLowStock
@@ -25,15 +33,15 @@ export default function SizeTile({ variant, isSelected, onSelect }: SizeTileProp
     .filter(Boolean)
     .join(" - ");
 
-  // Dynamic visual state classes while keeping geometry strictly identical
-  let stateClasses = "bg-white border-neutral-300 text-neutral-900 hover:border-neutral-900 cursor-pointer";
+  // State-driven styling with stable 66px height and 8px border radius
+  let stateClasses = "bg-white border-[#E5E5E5] text-[#111111] hover:border-[#111111] cursor-pointer";
 
   if (isSoldOut) {
-    stateClasses = "bg-neutral-100 border-neutral-200 text-neutral-400 cursor-not-allowed opacity-65";
+    stateClasses = "bg-[#F5F5F5] border-transparent text-[#A3A3A3] cursor-not-allowed select-none";
   } else if (isSelected) {
-    stateClasses = "bg-black border-black text-white ring-2 ring-black ring-offset-1 cursor-pointer";
+    stateClasses = "bg-[#111111] border-[#111111] text-white cursor-pointer shadow-sm";
   } else if (isLowStock) {
-    stateClasses = "bg-amber-50/50 border-amber-400 text-neutral-900 hover:border-amber-500 cursor-pointer";
+    stateClasses = "bg-white border-[#E5E5E5] text-[#111111] hover:border-[#B77900] cursor-pointer";
   }
 
   return (
@@ -51,55 +59,59 @@ export default function SizeTile({ variant, isSelected, onSelect }: SizeTileProp
           onSelect(variant.sku);
         }
       }}
-      className={`w-full h-[72px] rounded-lg border-2 p-1.5 flex flex-col justify-between items-center text-center transition-colors box-border focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 ${stateClasses}`}
+      className={`w-full h-[66px] rounded-lg border p-2 flex flex-col items-center justify-between transition-all duration-150 box-border relative focus:outline-none focus-visible:ring-2 focus-visible:ring-black ${stateClasses}`}
     >
-      {/* Top line: US Men & Women sizes */}
+      {/* Top right subtle availability indicator dot */}
+      <div className="w-full flex items-center justify-end h-2">
+        {isSoldOut ? (
+          <span className="w-1.5 h-1.5 rounded-full bg-[#A3A3A3]" aria-hidden="true" />
+        ) : isLowStock ? (
+          <span
+            className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-[#C7F000]" : "bg-[#B77900]"}`}
+            aria-hidden="true"
+          />
+        ) : (
+          <span
+            className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-white" : "bg-[#16803C]"}`}
+            aria-hidden="true"
+          />
+        )}
+      </div>
+
+      {/* Main size number: largest element */}
       <span
-        className={`text-[12px] font-bold leading-tight tracking-tight ${
+        className={`text-base font-bold leading-none tracking-tight ${
           isSelected
             ? "text-white"
             : isSoldOut
-            ? "text-neutral-400 line-through decoration-neutral-400"
-            : "text-neutral-900"
+            ? "text-[#A3A3A3] line-through decoration-[#A3A3A3]"
+            : "text-[#111111]"
         }`}
       >
-        M {variant.size_us_men} / W {variant.size_us_women}
+        {formattedSize}
       </span>
 
-      {/* Middle line: EU size */}
-      <span
-        className={`text-[11px] font-medium leading-none ${
-          isSelected
-            ? "text-neutral-300"
-            : isSoldOut
-            ? "text-neutral-400"
-            : "text-neutral-500"
-        }`}
-      >
-        EU {variant.size_eu}
-      </span>
-
-      {/* Bottom line: Stock status indicator badge (fixed 14px height for layout stability) */}
-      <div className="h-[14px] flex items-center justify-center">
+      {/* Bottom minimal indicator label */}
+      <div className="h-3 flex items-center justify-center">
         {isSoldOut ? (
-          <span className="text-[9px] font-semibold uppercase tracking-wider text-neutral-400">
-            Sold Out
+          <span className="text-[9px] font-medium text-[#A3A3A3] tracking-tight">
+            Sold out
           </span>
         ) : isLowStock ? (
           <span
             className={`text-[9px] font-semibold tracking-tight ${
-              isSelected ? "text-amber-300" : "text-amber-700"
+              isSelected ? "text-[#C7F000]" : "text-[#B77900]"
             }`}
           >
-            Only {variant.stock_quantity} left
+            {variant.stock_quantity} left
           </span>
         ) : (
           <span
-            className={`text-[9px] font-medium tracking-tight ${
-              isSelected ? "text-neutral-300" : "text-emerald-700"
+            className={`text-[9px] font-normal tracking-tight ${
+              isSelected ? "text-neutral-300" : "text-[#707070]"
             }`}
           >
-            In Stock
+            {format === "EU" ? "EU" : format === "US_MEN" ? "US M" : "US W"}
           </span>
         )}
       </div>

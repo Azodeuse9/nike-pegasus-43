@@ -4,49 +4,61 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import ProductGallery from "@/components/ProductGallery";
 import ProductInformation from "@/components/ProductInformation";
+import ColorSelector from "@/components/ColorSelector";
 import SizeSelector from "@/components/SizeSelector";
-import StockLegend from "@/components/StockLegend";
+import SelectedSizeSummary from "@/components/SelectedSizeSummary";
 import AddToBag from "@/components/AddToBag";
-import ProductDetails from "@/components/ProductDetails";
-import Reviews from "@/components/Reviews";
-import { inventory } from "@/data/inventory";
+import ProductAccordion from "@/components/ProductAccordion";
+import BagDrawer from "@/components/BagDrawer";
+import { inventory, SizeFormat } from "@/data/inventory";
 
 export default function Home() {
   const [selectedSku, setSelectedSku] = useState<string | null>(null);
+  const [format, setFormat] = useState<SizeFormat>("EU");
 
   const selectedVariant = inventory.find((v) => v.sku === selectedSku);
-  const selectedSize = selectedVariant?.size_label ?? "";
 
   return (
-    <div className="min-h-screen bg-neutral-100 sm:py-6 flex justify-center">
-      {/* Target 375px Phone Container */}
-      <div className="w-full max-w-[375px] min-h-screen bg-white shadow-lg sm:rounded-3xl flex flex-col overflow-x-hidden">
-        {/* 1. Header and navigation (375px width, 56px height) */}
+    <div className="min-h-screen bg-[#F5F5F5] sm:py-6 flex justify-center">
+      {/* Target Container: Clean 430px mobile envelope or full mobile screen */}
+      <div className="w-full max-w-[430px] min-h-screen bg-white sm:shadow-xl sm:rounded-[32px] flex flex-col overflow-x-hidden relative">
+        {/* Navigation Header */}
         <Header />
 
-        {/* Usable content area: 16px left/right page gutters = 343px usable width */}
-        <main className="w-full px-4 flex flex-col items-center pb-10">
-          {/* 2. Product photo gallery (343px × 343px) */}
+        {/* Main Product Content */}
+        <main className="w-full px-5 pt-3 pb-8 flex flex-col flex-1">
+          {/* 1. Product Gallery with Actual Photography */}
           <ProductGallery />
 
-          {/* 3. Product name, colorway and price (343px × 88px) */}
+          {/* 2. Product Information (Running, Title, Price, Colorway, Metadata) */}
           <ProductInformation />
 
-          {/* 4. Size selector heading + 3-column size grid (343px × 712px) */}
-          <SizeSelector selectedSku={selectedSku} onSelectSku={setSelectedSku} />
+          {/* 3. Colour Selection (Single verified Black / White-Volt) */}
+          <ColorSelector />
 
-          {/* 5. Stock legend (343px × 24px) */}
-          <StockLegend />
+          {/* 4. Redesigned Size Selector (4-col grid, EU default, Switcher, 8 initial, View All 26) */}
+          <SizeSelector
+            selectedSku={selectedSku}
+            onSelectSku={setSelectedSku}
+            format={format}
+            onFormatChange={setFormat}
+          />
 
-          {/* 6. Add to Bag button (343px × 56px) */}
-          <AddToBag selectedSku={selectedSku} selectedSize={selectedSize} />
+          {/* 5. Selected Size Confirmation Summary */}
+          <SelectedSizeSummary
+            selectedVariant={selectedVariant}
+            format={format}
+          />
 
-          {/* 7. Technology and product details (343px × 220px) */}
-          <ProductDetails />
-
-          {/* 8. Customer reviews (343px × 240px) */}
-          <Reviews />
+          {/* 6. Expandable Accordions: Details, Delivery & Returns, Reviews */}
+          <ProductAccordion />
         </main>
+
+        {/* 7. Sticky Add to Bag Button */}
+        <AddToBag selectedVariant={selectedVariant} />
+
+        {/* Slide-over Bag Drawer */}
+        <BagDrawer />
       </div>
     </div>
   );
