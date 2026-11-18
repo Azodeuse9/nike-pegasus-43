@@ -35,7 +35,7 @@ export default function AddToBag({ selectedVariant }: AddToBagProps) {
       sizeLabel: selectedVariant.size_label,
       sizeEu: selectedVariant.size_eu,
       price: productInfo.price,
-      image: "/assets/pegasus-lateral.webp",
+      image: "/assets/nike-pegasus-43-1.webp",
     });
 
     setToastMessage(
@@ -62,7 +62,7 @@ export default function AddToBag({ selectedVariant }: AddToBagProps) {
           className="fixed top-16 left-1/2 -translate-x-1/2 w-[360px] max-w-[92vw] z-50 bg-[#111111] text-white py-3 px-4 rounded-2xl shadow-2xl flex items-center justify-between border border-neutral-700 animate-slide-up"
         >
           <div className="flex items-center gap-2.5 min-w-0 mr-2">
-            <span className="w-5 h-5 rounded-full bg-[#C7F000] text-[#111111] flex items-center justify-center text-xs font-bold shrink-0">
+            <span className="w-5 h-5 rounded-full bg-white text-[#111111] flex items-center justify-center text-xs font-bold shrink-0">
               &#10003;
             </span>
             <p className="text-xs font-medium truncate">{toastMessage}</p>
@@ -70,7 +70,7 @@ export default function AddToBag({ selectedVariant }: AddToBagProps) {
           <button
             type="button"
             onClick={() => setIsBagOpen(true)}
-            className="text-xs font-bold text-[#C7F000] underline underline-offset-2 shrink-0 hover:text-white transition-colors"
+            className="text-xs font-bold text-white underline underline-offset-2 shrink-0 hover:text-neutral-300 transition-colors"
           >
             View Bag
           </button>
@@ -114,7 +114,7 @@ export default function AddToBag({ selectedVariant }: AddToBagProps) {
               isDisabled
                 ? "bg-[#F5F5F5] text-[#707070] hover:text-[#111111] hover:border-[#111111] cursor-pointer border border-[#E5E5E5] active:scale-[0.99]"
                 : isAdding
-                ? "bg-[#C7F000] text-[#111111] scale-[0.99]"
+                ? "bg-neutral-800 text-white scale-[0.99]"
                 : "bg-[#111111] text-white hover:bg-neutral-800 active:scale-[0.98] shadow-md"
             }`}
             aria-label={

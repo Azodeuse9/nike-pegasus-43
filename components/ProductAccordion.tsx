@@ -51,7 +51,7 @@ export default function ProductAccordion() {
 
             <div className="grid grid-cols-1 gap-2">
               <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-[#F9F9F9] border border-[#EBEBEB]">
-                <div className="w-7 h-7 rounded-lg bg-[#C7F000]/25 text-[#111111] flex items-center justify-center shrink-0 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-[#111111]/5 text-[#111111] flex items-center justify-center shrink-0 mt-0.5">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -131,12 +131,12 @@ export default function ProductAccordion() {
           </div>
 
           {/* Move to Zero Eco Banner */}
-          <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-100 text-[11px] text-emerald-900">
-            <span className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px] shrink-0">
-              🌱
+          <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-[#F9F9F9] border border-[#EBEBEB] text-[11px] text-[#333333]">
+            <span className="w-5 h-5 rounded-full bg-[#111111] text-white flex items-center justify-center font-bold text-[10px] shrink-0">
+              &#9851;
             </span>
             <p className="leading-snug">
-              <span className="font-semibold">Move to Zero:</span> Made with at least 20% recycled material by weight to reduce waste and carbon footprint.
+              <span className="font-semibold text-[#111111]">Move to Zero:</span> Made with at least 20% recycled material by weight to reduce waste and carbon footprint.
             </p>
           </div>
         </div>
@@ -268,7 +268,7 @@ export default function ProductAccordion() {
               <div className="flex items-center gap-2">
                 <span>{sec.title}</span>
                 {sec.badge && (
-                  <span className="text-[10px] font-bold bg-[#C7F000]/30 text-[#111111] px-2 py-0.5 rounded-full border border-[#C7F000]">
+                  <span className="text-[10px] font-bold bg-[#111111] text-white px-2 py-0.5 rounded-full">
                     {sec.badge}
                   </span>
                 )}

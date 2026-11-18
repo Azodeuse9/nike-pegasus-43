@@ -11,28 +11,28 @@ interface GallerySlide {
 
 const GALLERY_SLIDES: GallerySlide[] = [
   {
-    src: "/assets/pegasus-lateral.webp",
-    alt: "Nike Pegasus 43 lateral profile view in Black / White-Volt showing engineered mesh, volt gradient midsole and black swoosh",
+    src: "/assets/nike-pegasus-43-1.webp",
+    alt: "Nike Pegasus 43 lateral profile view in Black / White showing engineered mesh, responsive midsole and iconic black swoosh",
     label: "Lateral Profile",
   },
   {
-    src: "/assets/pegasus-pair.webp",
+    src: "/assets/nike-pegasus-43-5.webp",
     alt: "Nike Pegasus 43 three-quarter pair perspective showing toe box and lacing system",
     label: "Pair Angle",
   },
   {
-    src: "/assets/pegasus-medial.webp",
+    src: "/assets/nike-pegasus-43-2.webp",
     alt: "Nike Pegasus 43 medial arch view showing supportive inner midsole cushioning",
     label: "Medial Profile",
   },
   {
-    src: "/assets/pegasus-outsole.webp",
-    alt: "Nike Pegasus 43 waffle-inspired rubber outsole traction pods in volt and white",
+    src: "/assets/nike-pegasus-43-3.webp",
+    alt: "Nike Pegasus 43 waffle-inspired rubber outsole traction pods in black and white",
     label: "Outsole Traction",
   },
   {
-    src: "/assets/pegasus-detail-1.png",
-    alt: "Nike Pegasus 43 overhead view showing padded tongue, footbed and volt Zoom insole",
+    src: "/assets/nike-pegasus-43-4.webp",
+    alt: "Nike Pegasus 43 overhead view showing padded tongue, footbed and structured lacing",
     label: "Top-Down Footbed",
   },
 ];
@@ -98,9 +98,6 @@ export default function ProductGallery() {
           <div className="absolute top-4 left-4 z-10 flex items-center gap-1.5">
             <span className="bg-[#111111] text-white text-[10px] font-bold tracking-wider px-2.5 py-1 rounded-full uppercase shadow-xs">
               New
-            </span>
-            <span className="bg-[#C7F000] text-[#111111] text-[10px] font-bold tracking-tight px-2 py-0.5 rounded-full uppercase shadow-xs">
-              Volt
             </span>
           </div>
 

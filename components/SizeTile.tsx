@@ -67,12 +67,12 @@ export default function SizeTile({
           <span className="w-1.5 h-1.5 rounded-full bg-[#A3A3A3]" aria-hidden="true" />
         ) : isLowStock ? (
           <span
-            className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-[#C7F000]" : "bg-[#B77900]"}`}
+            className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-[#F59E0B]" : "bg-[#B77900]"}`}
             aria-hidden="true"
           />
         ) : (
           <span
-            className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-white" : "bg-[#16803C]"}`}
+            className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-emerald-400" : "bg-[#16803C]"}`}
             aria-hidden="true"
           />
         )}
@@ -100,7 +100,7 @@ export default function SizeTile({
         ) : isLowStock ? (
           <span
             className={`text-[9px] font-semibold tracking-tight ${
-              isSelected ? "text-[#C7F000]" : "text-[#B77900]"
+              isSelected ? "text-amber-300" : "text-[#B77900]"
             }`}
           >
             {variant.stock_quantity} left
