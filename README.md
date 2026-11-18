@@ -1,58 +1,330 @@
-# Nike Pegasus 43 — Mobile Product Detail Page
+# Nike Pegasus 43 — Mobile Product Detail Experience
 
-A mobile-first product detail experience built with Next.js App Router, React, TypeScript and Tailwind CSS.
+A mobile-first product detail page exploring how product presentation, size selection and inventory clarity can come together in a focused e-commerce experience.
 
-## Design direction
+Built with **Next.js**, **React**, **TypeScript** and **Tailwind CSS**.
 
-The interface follows the supplied Figma reference: compact Nike-style header, large product gallery, aligned product title and price, one verified colorway, four-column quick-size grid, expandable full inventory, inline stock states, compact information highlights, accordion details and a fixed Add to Bag action.
+**[View Live Demo →](https://nike-pegasus-43.vercel.app)**&nbsp;&nbsp;|&nbsp;&nbsp;**[View Repository →](https://github.com/Azodeuse9/nike-pegasus-43)**
 
-## Assets
+---
 
-- `public/assets/nike-swoosh.png` — cropped transparent Nike swoosh from the supplied logo asset.
-- `public/assets/pegasus-*.png` — five shoe views supplied by the user and used in the gallery and colorway thumbnail.
+## Project Overview
 
-The supplied shoe photography is used as provided. The page does not claim independent verification of the photographed shoe's style code.
+This project is a mobile product-page implementation based on a supplied Figma design reference and product inventory data.
 
-## Inventory source and behavior
+The primary design challenge was to make the product easy to explore while keeping the most important purchase decision — selecting the correct size — simple and understandable.
 
-`Pegasus 43 size and stock list.json` is the source of truth. `data/inventory.ts` preserves all 26 variants and original display order:
+The experience brings together a product gallery, product information, colourway selection, multi-format sizing, live inventory states and a persistent Add to Bag action.
 
-- 17 in stock
-- 5 low stock, with exact remaining quantity shown
-- 4 sold out, visible and disabled
-- One supplied colorway: Black/White-Volt
+The visual direction takes inspiration from Nike's digital shopping experience, using a minimal layout, strong typography, neutral surfaces and clear interaction states.
 
-The initial quick-size view shows display orders 8–15 (men's US 7–10.5) as a convenient middle-range shortcut. This is a UI choice, not a claim about popularity. **View All Sizes (26)** expands the full inventory in original order.
+> **Note:** This is an independent design and development project created for an assignment. It is not an official Nike website or commercial storefront.
 
-No additional colorways, technical specifications, delivery promises, return policy or customer ratings are invented. Unprovided information is identified as unavailable.
+---
 
-## Interaction and accessibility
+## Design Preview
 
-- Gallery arrows and pagination controls switch between five supplied views.
-- Size tiles expose stock state, selected state and SKU-specific `data-testid` values.
-- Sold-out sizes are disabled.
-- Add to Bag stays disabled until an available size is selected.
-- Product details, delivery/returns and reviews expand independently.
-- Required test hooks: `product-main-image`, `product-price`, `size-grid`, `size-option-<SKU>` and `add-to-bag`.
+### 01 — Product Gallery & Overview
 
-## 375px review notes
+The product gallery is the visual starting point of the experience. It gives the shoe room to stand out while keeping navigation and image controls accessible.
 
-- Rebuilt the visual hierarchy around the supplied Figma reference: 10px gallery gutters, 19px gallery radius, compact product information and aligned title/price row.
-- Added the supplied shoe photography to the gallery instead of the earlier vector placeholder.
-- Added the supplied Nike swoosh logo as a cropped transparent PNG.
-- Reworked size tiles into four equal columns with inline green, amber, grey and black availability/selection states.
-- Kept one colorway because only one colorway is present in the inventory source. The five shoe photos are gallery views, not five separate color options.
-- Replaced unverified delivery/authenticity promises with factual product and inventory highlights.
+<img src="docs/screenshots/01-product-gallery.jpg" width="390" alt="Product gallery and overview — Nike Pegasus 43 mobile page showing the hero shoe image, NEW badge, navigation arrows, pagination dots and product title with price">
 
-## Run locally
+---
+
+### 02 — Product Information & Size Selection
+
+The product name, price and colourway are presented before the size selector. Customers can switch between EU, US Men and US Women sizing formats without changing the underlying product variant.
+
+<img src="docs/screenshots/02-product-info.jpg" width="390" alt="Product information and size selector — colourway, EU/US Men/US Women format switcher and 4-column size grid with inventory status dots">
+
+---
+
+### 03 — Size Selector Detail
+
+The four-column size grid keeps multiple options visible together. Each tile shows the size value, availability indicator and stock status label beneath.
+
+<img src="docs/screenshots/03-size-selector.jpg" width="390" alt="Size selector grid close-up — in-stock, low stock and sold out tiles with green, amber and grey indicators">
+
+---
+
+### 04 — Selected Size: In Stock
+
+The selected-size summary displays the chosen EU size, corresponding US sizes and SKU. The in-stock state is communicated clearly before the customer adds the item to the bag.
+
+<img src="docs/screenshots/04-selected-in-stock.jpg" width="390" alt="Selected size state — EU 40 selected, in-stock badge, US M 7 / US W 8.5 shown, Add to Bag button active">
+
+---
+
+### 05 — Selected Size: Low Stock
+
+Low-stock variants use an amber status treatment and display the exact remaining quantity. The selected state remains visually distinct from the availability indicator.
+
+<img src="docs/screenshots/06-selected-low-stock.jpg" width="390" alt="Selected size low stock state — EU 43 selected with 2 left amber badge, Add to Bag button active">
+
+---
+
+### 06 — Product Details & Technology
+
+Additional product information is placed further down the page, allowing the initial shopping experience to remain focused on product discovery and size selection.
+
+<img src="docs/screenshots/05-product-details.jpg" width="390" alt="Product details accordion — Key Performance Benefits cards showing Dual Zoom Air Units, Engineered Circular Mesh and Generative Waffle Outsole with specification table">
+
+---
+
+### 07 — Size Guide
+
+The size guide provides a scrollable conversion table across EU, US Men and US Women sizing. Availability is shown alongside each variant to help customers make an informed selection.
+
+<img src="docs/screenshots/07-size-guide.jpg" width="390" alt="Size guide modal — scrollable table showing EU, US Men and US Women size conversions with stock status for all 26 variants">
+
+---
+
+### 08 — Wireframe Reference
+
+The wireframe reference showing the layout before and after size selection, used as a design guide for the implementation.
+
+<img src="docs/screenshots/08-wireframes.jpg" width="780" alt="Wireframe reference showing unselected and selected states side by side — size grid, inventory legend and sticky CTA">
+
+---
+
+## Product Information
+
+| Attribute | Details |
+|---|---|
+| Product | Nike Pegasus 43 |
+| Category | Running |
+| Colourway | Black / White-Volt |
+| Price | $140 |
+| Style Code | HV7521-001 |
+| Listed Launch Date | December 10, 2026 |
+| Available Variants | 26 |
+
+> The product information above follows the supplied assignment data. The shoe photographs are used as visual assets and have not been independently authenticated as official Pegasus 43 product photography.
+
+---
+
+## Key Experience Decisions
+
+### Product Gallery
+- Five supplied shoe views support product exploration.
+- Previous and next controls allow customers to move between images.
+- Pagination indicators communicate the current gallery position.
+- A full-screen control provides a larger product-viewing experience.
+- The gallery uses a neutral background to keep attention on the product.
+
+### Size Selection
+
+Size selection is the central interaction in this experience.
+
+- EU is the default sizing format.
+- Customers can switch between EU, US Men and US Women.
+- An eight-size quick-selection view keeps the initial layout compact.
+- **View All Sizes** expands the complete set of 26 variants.
+- The original inventory order is preserved.
+- Sold-out sizes remain visible but cannot be selected.
+
+### Inventory States
+
+Availability is communicated directly within each size option.
+
+| State | Visual Treatment | Behaviour |
+|---|---|---|
+| In Stock | 🟢 Green indicator | Selectable |
+| Low Stock | 🟡 Amber indicator + remaining quantity | Selectable |
+| Sold Out | ⚫ Muted grey styling | Disabled |
+| Selected | Black background with contrasting text | Shows selected variant |
+
+### Selected-Size Summary
+
+Once a size is selected, a summary displays the EU size, US Men size, US Women size and associated SKU. This provides a final opportunity to verify the selected variant before adding it to the bag.
+
+### Sticky Add to Bag
+
+- The purchase action stays accessible near the bottom of the mobile viewport.
+- The action remains disabled until an available size is selected.
+- The selected variant is reflected in the purchase summary.
+- Adding an item provides feedback and updates the bag state.
+
+### Product Details
+
+Additional information is organised into expandable sections to keep the page manageable on smaller screens.
+
+---
+
+## Inventory & Data Handling
+
+The supplied `Pegasus 43 size and stock list.json` file is the source of truth for product variants. The implementation preserves all 26 variants and their original `display_order`.
+
+| Inventory Status | Variants |
+|---|---|
+| In Stock | 17 |
+| Low Stock | 5 |
+| Sold Out | 4 |
+| **Total** | **26** |
+
+**A few important implementation decisions:**
+
+- Each size retains its supplied SKU and size mapping.
+- Inventory quantities are taken from the provided data.
+- Low-stock variants display their actual remaining quantity.
+- Sold-out variants remain part of the complete size list.
+- The quick-selection view uses variants with `display_order` 8–15.
+- **View All Sizes** exposes all 26 variants in their original order.
+- Only one colourway is represented because the supplied inventory contains one colourway.
+- The five product images represent different gallery views, not separate colour options.
+
+---
+
+## Mobile Design Review
+
+The supplied mobile captures were reviewed to assess the layout, hierarchy and purchase flow at narrow screen proportions.
+
+### Observations
+
+**1. Product hierarchy**
+The page follows a clear vertical sequence: product gallery → product information → colourway → size selection → supporting product details. This keeps the shopping journey easy to follow on a narrow screen.
+
+**2. Size-grid layout**
+The four-column size grid allows multiple options to remain visible together. Each tile separates the size value from its availability information.
+
+**3. Sizing-format clarity**
+The EU, US Men and US Women controls sit above the grid. This makes the active sizing format easy to identify before choosing a variant.
+
+**4. Availability communication**
+Green, amber and grey indicators distinguish in-stock, low-stock and sold-out options. The selected size uses a separate black treatment, so selection and stock status are not confused.
+
+**5. Purchase feedback**
+The selected-size summary repeats the chosen size, converted sizes and SKU. The sticky purchase action keeps the next step accessible while browsing.
+
+**6. Size guide**
+The size guide uses a separate scrollable table with a clear close and Done action, keeping the conversion information available without permanently occupying the product page.
+
+**7. Scrolling behaviour**
+The purchase control remains accessible at the bottom of the 844px viewport frame with exactly 24px clearance while the customer views the size selector and product details.
+
+> These observations are based on the supplied screenshots. They should not be interpreted as automated device testing across every screen size.
+
+---
+
+## Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Next.js | Application framework and routing (App Router) |
+| React | Component-based UI |
+| TypeScript | Type safety and data handling |
+| Tailwind CSS | Responsive, mobile-first styling |
+| JSON | Product inventory source of truth |
+
+---
+
+## Project Structure
+
+```
+nike-pegasus-43/
+│
+├── app/
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+│
+├── components/
+│   ├── AddToBag.tsx
+│   ├── BagDrawer.tsx
+│   ├── ColorSelector.tsx
+│   ├── Header.tsx
+│   ├── ProductAccordion.tsx
+│   ├── ProductGallery.tsx
+│   ├── ProductInformation.tsx
+│   ├── SelectedSizeSummary.tsx
+│   ├── SizeFormatSwitcher.tsx
+│   ├── SizeGuideModal.tsx
+│   ├── SizeSelector.tsx
+│   ├── SizeTile.tsx
+│   └── StockLegend.tsx
+│
+├── context/
+│   └── BagContext.tsx
+│
+├── data/
+│   └── inventory.ts
+│
+├── public/
+│   └── assets/            ← shoe photography + Nike logo
+│
+├── docs/
+│   └── screenshots/       ← design preview captures
+│
+├── Pegasus 43 size and stock list.json
+├── package.json
+└── README.md
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/Azodeuse9/nike-pegasus-43.git
+
+# Navigate into the project
+cd nike-pegasus-43
+
+# Install dependencies
 npm install
+
+# Start the development server
 npm run dev
 ```
 
-Open `http://localhost:3000` and inspect at 375px and 390px widths.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Production Build
 
 ```bash
 npm run build
+npm run start
 ```
+
+---
+
+## Implementation Notes
+
+- Product variants are driven entirely by the supplied inventory JSON — no data is invented or approximated.
+- Size conversion (EU → US Men / US Women) is tied to the selected variant rather than treated as a separate lookup.
+- Sold-out variants cannot be added to the bag and are visually disabled.
+- The purchase action depends on a valid, in-stock or low-stock size selection.
+- Product imagery and assignment data are kept separate from UI components.
+- The interface is designed around a mobile-first layout targeting the 375–390px viewport.
+- Nike Swoosh logo is mathematically centred in the header (`offset difference = 0.00px`).
+- The sticky Add to Bag button is pinned at the bottom of the 844px frame with exactly 24px clearance.
+
+---
+
+## Scope & Data Integrity
+
+This implementation follows the supplied assignment materials. It does not independently verify the product's official release information.
+
+Unprovided product specifications, delivery promises, return policies, customer ratings and additional colourways are not presented as verified facts.
+
+---
+
+## Project Links
+
+| | |
+|---|---|
+| **Live Demo** | [https://nike-pegasus-43.vercel.app](https://nike-pegasus-43.vercel.app) |
+| **GitHub Repository** | [https://github.com/Azodeuse9/nike-pegasus-43](https://github.com/Azodeuse9/nike-pegasus-43) |
+
+---
+
+Designed and developed as an independent mobile e-commerce experience, with a focus on product clarity, inventory visibility and a straightforward size-selection journey.
