@@ -73,3 +73,16 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Product gallery: scoped to ensure seamless image surface without rectangular shadows or borders */
+[data-testid="main-photo"] {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+[data-testid="main-photo"] img {
+  filter: none !important;
+  -webkit-filter: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}

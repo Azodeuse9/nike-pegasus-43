@@ -118,14 +118,18 @@ export default function ProductGallery() {
           </button>
 
           {/* Full-bleed Shoe Image without inner borders or rectangular drop-shadows */}
-          <div className="relative w-full h-full flex items-center justify-center">
+          <div
+            className="relative w-full h-full flex items-center justify-center shadow-none border-none"
+            style={{ filter: "none", boxShadow: "none" }}
+          >
             <Image
               src={activeImage.src}
               alt={activeImage.alt}
               fill
               sizes="(max-width: 430px) 390px, 430px"
               priority={currentSlide === 0}
-              className="object-contain select-none"
+              className="object-contain select-none shadow-none border-none outline-none"
+              style={{ filter: "none", boxShadow: "none" }}
             />
           </div>
 
