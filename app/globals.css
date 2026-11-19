@@ -85,4 +85,17 @@
   -webkit-filter: none !important;
   box-shadow: none !important;
   border: none !important;
+  background: transparent !important;
+  outline: none !important;
+}
+
+/* Remove any background from Next.js image wrapper spans inside the gallery */
+[data-testid="main-photo"] span[style] {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+[data-testid="main-photo"] > span {
+  background: transparent !important;
 }

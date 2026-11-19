@@ -20,7 +20,7 @@ export default function ColorSelector() {
           >
             <div className="relative w-full h-full">
               <Image
-                src="/assets/nike-pegasus-43-1.webp"
+                src="/assets/nike-pegasus-43-1.png"
                 alt={productInfo.colorway}
                 fill
                 className="object-contain"

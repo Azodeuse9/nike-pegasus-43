@@ -70,7 +70,7 @@ export default function BagDrawer() {
               <div key={item.sku} className="py-4 flex gap-3">
                 <div className="relative w-16 h-16 bg-[#F1F1F1] rounded-lg shrink-0 overflow-hidden border border-[#E5E5E5]/60">
                   <Image
-                    src={item.image || "/assets/nike-pegasus-43-1.webp"}
+                    src={item.image || "/assets/nike-pegasus-43-1.png"}
                     alt={item.productName}
                     fill
                     className="object-contain p-1"

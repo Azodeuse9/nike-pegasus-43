@@ -11,27 +11,27 @@ interface GallerySlide {
 
 const GALLERY_SLIDES: GallerySlide[] = [
   {
-    src: "/assets/nike-pegasus-43-1.webp",
+    src: "/assets/nike-pegasus-43-1.png",
     alt: "Nike Pegasus 43 lateral profile view in Black / White showing engineered mesh, responsive midsole and iconic white swoosh",
     label: "Lateral Profile",
   },
   {
-    src: "/assets/nike-pegasus-43-2.webp",
+    src: "/assets/nike-pegasus-43-2.png",
     alt: "Nike Pegasus 43 three-quarter pair perspective showing toe box and lacing system",
     label: "Pair Angle",
   },
   {
-    src: "/assets/nike-pegasus-43-3.webp",
+    src: "/assets/nike-pegasus-43-3.png",
     alt: "Nike Pegasus 43 medial arch view showing supportive inner midsole cushioning",
     label: "Medial Profile",
   },
   {
-    src: "/assets/nike-pegasus-43-4.webp",
+    src: "/assets/nike-pegasus-43-4.png",
     alt: "Nike Pegasus 43 waffle-inspired rubber outsole traction pods in black and white",
     label: "Outsole Traction",
   },
   {
-    src: "/assets/nike-pegasus-43-5.webp",
+    src: "/assets/nike-pegasus-43-5.png",
     alt: "Nike Pegasus 43 overhead view showing padded tongue, footbed and structured lacing",
     label: "Top-Down Footbed",
   },
@@ -117,21 +117,16 @@ export default function ProductGallery() {
             </svg>
           </button>
 
-          {/* Full-bleed Shoe Image without inner borders or rectangular drop-shadows */}
-          <div
-            className="relative w-full h-full flex items-center justify-center shadow-none border-none"
-            style={{ filter: "none", boxShadow: "none" }}
-          >
-            <Image
-              src={activeImage.src}
-              alt={activeImage.alt}
-              fill
-              sizes="(max-width: 430px) 390px, 430px"
-              priority={currentSlide === 0}
-              className="object-contain select-none shadow-none border-none outline-none"
-              style={{ filter: "none", boxShadow: "none" }}
-            />
-          </div>
+          {/* Shoe Image — full-bleed, no wrapper, transparent PNG blends into gallery bg */}
+          <Image
+            src={activeImage.src}
+            alt={activeImage.alt}
+            fill
+            sizes="(max-width: 430px) 390px, 430px"
+            priority={currentSlide === 0}
+            className="object-contain select-none"
+            style={{ filter: "none", boxShadow: "none", border: "none", outline: "none", background: "transparent" }}
+          />
 
           {/* Previous Slide Button */}
           <button
