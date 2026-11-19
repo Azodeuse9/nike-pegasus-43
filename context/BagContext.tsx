@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
+import React, { createContext, useContext, useState, useCallback } from "react";
 
 export interface BagItem {
   sku: string;
@@ -41,14 +41,10 @@ const BagContext = createContext<BagContextType>({
 
 export function BagProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<BagItem[]>([]);
-  const [count, setCount] = useState(0);
   const [isBagOpen, setIsBagOpen] = useState(false);
 
-  // Recalculate total item count
-  useEffect(() => {
-    const total = items.reduce((sum, item) => sum + item.quantity, 0);
-    setCount(total);
-  }, [items]);
+  // Derived total item count without cascading effect renders
+  const count = items.reduce((sum, item) => sum + item.quantity, 0);
 
   const addItem = useCallback(
     (item: {

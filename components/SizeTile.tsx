@@ -53,14 +53,18 @@ export default function SizeTile({
       aria-disabled={isSoldOut}
       disabled={isSoldOut}
       tabIndex={isSoldOut ? -1 : 0}
-      data-testid={`size-option-${variant.sku}`}
+      data-testid={isSoldOut ? "size-button-sold-out" : "size-button"}
+      data-sku={variant.sku}
       onClick={() => {
         if (!isSoldOut) {
           onSelect(variant.sku);
         }
       }}
-      className={`w-full h-[66px] rounded-lg border p-2 flex flex-col items-center justify-between transition-all duration-150 box-border relative focus:outline-none focus-visible:ring-2 focus-visible:ring-black ${stateClasses}`}
+      className={`w-full min-w-[44px] min-h-[44px] h-[66px] rounded-lg border p-2 flex flex-col items-center justify-between transition-all duration-150 box-border relative focus:outline-none focus-visible:ring-2 focus-visible:ring-black ${stateClasses}`}
     >
+      {/* Backwards-compatibility test attribute */}
+      <span data-testid={`size-option-${variant.sku}`} className="sr-only" aria-hidden="true" />
+
       {/* Top right subtle availability indicator dot */}
       <div className="w-full flex items-center justify-end h-2">
         {isSoldOut ? (

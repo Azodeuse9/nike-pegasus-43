@@ -17,7 +17,7 @@ export default function ProductInformation() {
           data-testid="product-price"
           className="text-[24px] sm:text-[26px] font-bold text-[#111111] shrink-0"
         >
-          ${productInfo.price}
+          <span data-testid="price">${productInfo.price}</span>
         </span>
       </div>
 

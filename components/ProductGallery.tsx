@@ -12,28 +12,23 @@ interface GallerySlide {
 const GALLERY_SLIDES: GallerySlide[] = [
   {
     src: "/assets/nike-pegasus-43-1.webp",
-    alt: "Nike Pegasus 43 lateral profile view in Black / White showing engineered mesh, responsive midsole and iconic black swoosh",
+    alt: "Nike Pegasus 43 lateral profile view in White-Volt showing engineered mesh, responsive midsole and iconic black swoosh",
     label: "Lateral Profile",
   },
   {
-    src: "/assets/nike-pegasus-43-5.webp",
+    src: "/assets/nike-pegasus-43-2.webp",
     alt: "Nike Pegasus 43 three-quarter pair perspective showing toe box and lacing system",
     label: "Pair Angle",
   },
   {
-    src: "/assets/nike-pegasus-43-2.webp",
+    src: "/assets/nike-pegasus-43-3.webp",
     alt: "Nike Pegasus 43 medial arch view showing supportive inner midsole cushioning",
     label: "Medial Profile",
   },
   {
-    src: "/assets/nike-pegasus-43-3.webp",
-    alt: "Nike Pegasus 43 waffle-inspired rubber outsole traction pods in black and white",
-    label: "Outsole Traction",
-  },
-  {
     src: "/assets/nike-pegasus-43-4.webp",
-    alt: "Nike Pegasus 43 overhead view showing padded tongue, footbed and structured lacing",
-    label: "Top-Down Footbed",
+    alt: "Nike Pegasus 43 waffle-inspired rubber outsole traction pods in volt and white",
+    label: "Outsole Traction",
   },
 ];
 
@@ -83,13 +78,17 @@ export default function ProductGallery() {
       >
         {/* Main Gallery Card: 18px rounded corners, #F5F5F5 light neutral grey bg, 1:1 aspect ratio */}
         <div
-          data-testid="main-product-image"
+          data-testid="main-photo"
+          style={{ aspectRatio: "1 / 1" }}
           className="relative w-full aspect-square bg-[#F5F5F5] rounded-[18px] overflow-hidden flex items-center justify-center border border-[#E5E5E5]/60 group"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
           {/* Backwards-compatibility test attribute */}
+          <span data-testid="main-product-image" className="sr-only">
+            {activeImage.alt}
+          </span>
           <span data-testid="product-main-image" className="sr-only">
             {activeImage.alt}
           </span>
@@ -208,6 +207,7 @@ export default function ProductGallery() {
               src={activeImage.src}
               alt={activeImage.alt}
               fill
+              sizes="(max-width: 768px) 100vw, 800px"
               className="object-contain"
             />
           </div>

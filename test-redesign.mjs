@@ -65,7 +65,7 @@ async function testAll() {
     const tiles = Array.from(document.querySelectorAll('[data-testid="size-grid"] button[role="radio"]'));
     return tiles.map(t => ({
       testId: t.getAttribute('data-testid'),
-      sku: t.getAttribute('data-testid')?.replace('size-option-', ''),
+      sku: t.getAttribute('data-sku') || t.getAttribute('data-testid')?.replace('size-option-', ''),
       text: t.querySelector('span.text-base')?.textContent?.trim(),
       disabled: t.disabled,
     }));
@@ -85,7 +85,7 @@ async function testAll() {
   const allTiles = await page.evaluate(() => {
     const tiles = Array.from(document.querySelectorAll('[data-testid="size-grid"] button[role="radio"]'));
     return tiles.map(t => ({
-      sku: t.getAttribute('data-testid')?.replace('size-option-', ''),
+      sku: t.getAttribute('data-sku') || t.getAttribute('data-testid')?.replace('size-option-', ''),
       text: t.querySelector('span.text-base')?.textContent?.trim(),
       disabled: t.disabled,
     }));
