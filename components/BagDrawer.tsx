@@ -68,7 +68,7 @@ export default function BagDrawer() {
           ) : (
             items.map((item) => (
               <div key={item.sku} className="py-4 flex gap-3">
-                <div className="relative w-16 h-16 bg-[#F5F5F5] rounded-lg shrink-0 overflow-hidden border border-[#E5E5E5]/60">
+                <div className="relative w-16 h-16 bg-[#F1F1F1] rounded-lg shrink-0 overflow-hidden border border-[#E5E5E5]/60">
                   <Image
                     src={item.image || "/assets/nike-pegasus-43-1.webp"}
                     alt={item.productName}
