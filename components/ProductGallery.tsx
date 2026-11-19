@@ -117,23 +117,28 @@ export default function ProductGallery() {
             </svg>
           </button>
 
-          {/* Shoe Image — full-bleed, no wrapper, transparent PNG blends into gallery bg */}
-          <Image
-            src={activeImage.src}
-            alt={activeImage.alt}
-            fill
-            sizes="(max-width: 430px) 390px, 430px"
-            priority={currentSlide === 0}
-            className="object-contain select-none"
-            style={{ filter: "none", boxShadow: "none", border: "none", outline: "none", background: "transparent" }}
-          />
+          {/* Centered Shoe Image scaled to 90% */}
+          <div
+            className="relative w-[90%] h-[90%] flex items-center justify-center"
+            style={{ background: "transparent", border: "none", boxShadow: "none" }}
+          >
+            <Image
+              src={activeImage.src}
+              alt={activeImage.alt}
+              fill
+              sizes="(max-width: 430px) 390px, 430px"
+              priority={currentSlide === 0}
+              className="object-contain select-none"
+              style={{ filter: "none", boxShadow: "none", border: "none", outline: "none", background: "transparent" }}
+            />
+          </div>
 
           {/* Previous Slide Button */}
           <button
             type="button"
             aria-label="Previous image"
             onClick={prevSlide}
-            className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 backdrop-blur-xs text-[#111111] hover:bg-white flex items-center justify-center shadow-xs transition-opacity opacity-75 hover:opacity-100 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+            className="absolute left-2.5 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/70 backdrop-blur-xs text-[#111111] hover:bg-white flex items-center justify-center shadow-xs transition-opacity opacity-75 hover:opacity-100 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -145,7 +150,7 @@ export default function ProductGallery() {
             type="button"
             aria-label="Next image"
             onClick={nextSlide}
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 backdrop-blur-xs text-[#111111] hover:bg-white flex items-center justify-center shadow-xs transition-opacity opacity-75 hover:opacity-100 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/70 backdrop-blur-xs text-[#111111] hover:bg-white flex items-center justify-center shadow-xs transition-opacity opacity-75 hover:opacity-100 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
