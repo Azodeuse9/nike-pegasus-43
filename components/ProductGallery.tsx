@@ -12,23 +12,28 @@ interface GallerySlide {
 const GALLERY_SLIDES: GallerySlide[] = [
   {
     src: "/assets/nike-pegasus-43-1.webp",
-    alt: "Nike Pegasus 43 lateral profile view in White-Volt showing engineered mesh, responsive midsole and iconic black swoosh",
+    alt: "Nike Pegasus 43 lateral profile view in Black / White showing engineered mesh, responsive midsole and iconic white swoosh",
     label: "Lateral Profile",
   },
   {
-    src: "/assets/nike-pegasus-43-2.webp",
+    src: "/assets/nike-pegasus-43-5.webp",
     alt: "Nike Pegasus 43 three-quarter pair perspective showing toe box and lacing system",
     label: "Pair Angle",
   },
   {
-    src: "/assets/nike-pegasus-43-3.webp",
+    src: "/assets/nike-pegasus-43-2.webp",
     alt: "Nike Pegasus 43 medial arch view showing supportive inner midsole cushioning",
     label: "Medial Profile",
   },
   {
-    src: "/assets/nike-pegasus-43-4.webp",
-    alt: "Nike Pegasus 43 waffle-inspired rubber outsole traction pods in volt and white",
+    src: "/assets/nike-pegasus-43-3.webp",
+    alt: "Nike Pegasus 43 waffle-inspired rubber outsole traction pods in black and white",
     label: "Outsole Traction",
+  },
+  {
+    src: "/assets/nike-pegasus-43-4.webp",
+    alt: "Nike Pegasus 43 overhead view showing padded tongue, footbed and structured lacing",
+    label: "Top-Down Footbed",
   },
 ];
 
@@ -76,11 +81,11 @@ export default function ProductGallery() {
         aria-label="Nike Pegasus 43 product photo gallery"
         className="w-full max-w-[430px] mx-auto select-none"
       >
-        {/* Main Gallery Card: 18px rounded corners, #F5F5F5 light neutral grey bg, 1:1 aspect ratio */}
+        {/* Main Gallery Card: 18px rounded corners, matching studio grey bg, 1:1 aspect ratio */}
         <div
           data-testid="main-photo"
           style={{ aspectRatio: "1 / 1" }}
-          className="relative w-full aspect-square bg-[#F5F5F5] rounded-[18px] overflow-hidden flex items-center justify-center border border-[#E5E5E5]/60 group"
+          className="relative w-full aspect-square bg-[#F1F1F1] rounded-[18px] overflow-hidden flex items-center justify-center group"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -112,15 +117,15 @@ export default function ProductGallery() {
             </svg>
           </button>
 
-          {/* Centered Large Shoe Image with object-fit: contain (no cropping, no distortion) */}
-          <div className="relative w-[85%] h-[85%] flex items-center justify-center transition-transform duration-300">
+          {/* Full-bleed Shoe Image without inner borders or rectangular drop-shadows */}
+          <div className="relative w-full h-full flex items-center justify-center">
             <Image
               src={activeImage.src}
               alt={activeImage.alt}
               fill
-              sizes="(max-width: 430px) 350px, 400px"
+              sizes="(max-width: 430px) 390px, 430px"
               priority={currentSlide === 0}
-              className="object-contain drop-shadow-sm select-none"
+              className="object-contain select-none"
             />
           </div>
 

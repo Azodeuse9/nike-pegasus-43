@@ -16,7 +16,7 @@ export default function ColorSelector() {
             type="button"
             aria-label={`${productInfo.colorway} (Selected)`}
             aria-pressed="true"
-            className="w-16 h-16 rounded-[12px] bg-[#F5F5F5] border-2 border-[#111111] p-1.5 flex items-center justify-center transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+            className="w-16 h-16 rounded-[12px] bg-[#F1F1F1] border-2 border-[#111111] overflow-hidden flex items-center justify-center transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
           >
             <div className="relative w-full h-full">
               <Image
