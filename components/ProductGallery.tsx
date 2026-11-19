@@ -81,10 +81,10 @@ export default function ProductGallery() {
         aria-label="Nike Pegasus 43 product photo gallery"
         className="w-full max-w-[430px] mx-auto select-none"
       >
-        {/* Main Gallery Card: 18px rounded corners, matching studio grey bg, 1:1 aspect ratio */}
+        {/* Main Gallery Card: 18px rounded corners, matching shoe background (#F1F1F1), 1:1 aspect ratio */}
         <div
           data-testid="main-photo"
-          style={{ aspectRatio: "1 / 1" }}
+          style={{ aspectRatio: "1 / 1", backgroundColor: "#F1F1F1" }}
           className="relative w-full aspect-square bg-[#F1F1F1] rounded-[18px] overflow-hidden flex items-center justify-center group"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
