@@ -1,0 +1,198 @@
+{
+  "timestamp": "2026-11-19T17:16:07.327Z",
+  "speedBudget": {
+    "performance_score_min": 90,
+    "size_grid_shift_px_max": 0,
+    "size_button_min_px": 44
+  },
+  "cdpProfile": {
+    "viewport": "375x812",
+    "dpr": 3,
+    "mobile": true,
+    "latencyMs": 562.5,
+    "downloadKbps": 1474.56,
+    "uploadKbps": 675,
+    "cpuSlowdown": "4x"
+  },
+  "continuousLayoutStability": {
+    "rafFramesMeasured": 461,
+    "firstObservedY": 763,
+    "finalY": 763,
+    "minY": 763,
+    "maxY": 763,
+    "maxVerticalDisplacementPx": 0,
+    "cls": 0,
+    "pass": true,
+    "positionsSample": [
+      {
+        "frame": 0,
+        "time": 2189,
+        "y": 763
+      },
+      {
+        "frame": 1,
+        "time": 2248.1,
+        "y": 763
+      },
+      {
+        "frame": 2,
+        "time": 2415.6,
+        "y": 763
+      },
+      {
+        "frame": 3,
+        "time": 2428.5,
+        "y": 763
+      },
+      {
+        "frame": 4,
+        "time": 2439.9,
+        "y": 763
+      },
+      {
+        "frame": 5,
+        "time": 2455.5,
+        "y": 763
+      },
+      {
+        "frame": 6,
+        "time": 2460.8,
+        "y": 763
+      },
+      {
+        "frame": 7,
+        "time": 2477.5,
+        "y": 763
+      },
+      {
+        "frame": 8,
+        "time": 2494.6,
+        "y": 763
+      },
+      {
+        "frame": 9,
+        "time": 2511.1,
+        "y": 763
+      },
+      {
+        "frame": 10,
+        "time": 2526.9,
+        "y": 763
+      },
+      {
+        "frame": 11,
+        "time": 2544,
+        "y": 763
+      },
+      {
+        "frame": 12,
+        "time": 2560.9,
+        "y": 763
+      },
+      {
+        "frame": 13,
+        "time": 2577.9,
+        "y": 763
+      },
+      {
+        "frame": 14,
+        "time": 2593.5,
+        "y": 763
+      },
+      {
+        "frame": 15,
+        "time": 2610.6,
+        "y": 763
+      },
+      {
+        "frame": 16,
+        "time": 2627.2,
+        "y": 763
+      },
+      {
+        "frame": 17,
+        "time": 2644.6,
+        "y": 763
+      },
+      {
+        "frame": 18,
+        "time": 2661.3,
+        "y": 763
+      },
+      {
+        "frame": 19,
+        "time": 2677.7,
+        "y": 763
+      }
+    ]
+  },
+  "sizeSelector": {
+    "variantsChecked": 26,
+    "allPresent": true,
+    "allSoldOutDisabled": true,
+    "allButtonsMeetMin44px": true,
+    "minButtonWidth": 77.75,
+    "minButtonHeight": 66
+  },
+  "galleryVisual": {
+    "cardWidth": 335,
+    "cardHeight": 335,
+    "wrapperWidth": 302,
+    "wrapperHeight": 302,
+    "scaleRatio": "0.900",
+    "imgSrc": "http://localhost:3000/assets/nike-pegasus-43-1.png",
+    "imgFilter": "none",
+    "imgBoxShadow": "none",
+    "galleryBg": "rgb(241, 241, 241)"
+  },
+  "traceAnalysis": {
+    "traceFile": "performance-evidence/chrome-performance-trace.json",
+    "totalEvents": 66067,
+    "beginFrameCount": 626,
+    "drawFrameCount": 59,
+    "droppedFrameCount": 20,
+    "longTasksCount": 8,
+    "longTasks": [
+      {
+        "duration": 773,
+        "startTime": 1441.7000000029802,
+        "name": "self"
+      },
+      {
+        "duration": 898,
+        "startTime": 7573,
+        "name": "self"
+      },
+      {
+        "duration": 71,
+        "startTime": 8510,
+        "name": "self"
+      },
+      {
+        "duration": 93,
+        "startTime": 9067.30000000447,
+        "name": "self"
+      },
+      {
+        "duration": 102,
+        "startTime": 9781,
+        "name": "self"
+      },
+      {
+        "duration": 74,
+        "startTime": 10117.70000000298,
+        "name": "self"
+      },
+      {
+        "duration": 57,
+        "startTime": 10271.90000000596,
+        "name": "self"
+      },
+      {
+        "duration": 97,
+        "startTime": 10336.80000000447,
+        "name": "self"
+      }
+    ]
+  }
+}
