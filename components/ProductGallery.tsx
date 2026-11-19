@@ -16,22 +16,22 @@ const GALLERY_SLIDES: GallerySlide[] = [
     label: "Lateral Profile",
   },
   {
-    src: "/assets/nike-pegasus-43-5.webp",
+    src: "/assets/nike-pegasus-43-2.webp",
     alt: "Nike Pegasus 43 three-quarter pair perspective showing toe box and lacing system",
     label: "Pair Angle",
   },
   {
-    src: "/assets/nike-pegasus-43-2.webp",
+    src: "/assets/nike-pegasus-43-3.webp",
     alt: "Nike Pegasus 43 medial arch view showing supportive inner midsole cushioning",
     label: "Medial Profile",
   },
   {
-    src: "/assets/nike-pegasus-43-3.webp",
+    src: "/assets/nike-pegasus-43-4.webp",
     alt: "Nike Pegasus 43 waffle-inspired rubber outsole traction pods in black and white",
     label: "Outsole Traction",
   },
   {
-    src: "/assets/nike-pegasus-43-4.webp",
+    src: "/assets/nike-pegasus-43-5.webp",
     alt: "Nike Pegasus 43 overhead view showing padded tongue, footbed and structured lacing",
     label: "Top-Down Footbed",
   },
