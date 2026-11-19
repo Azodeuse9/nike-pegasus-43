@@ -35,7 +35,7 @@ export default function AddToBag({ selectedVariant }: AddToBagProps) {
       sizeLabel: selectedVariant.size_label,
       sizeEu: selectedVariant.size_eu,
       price: productInfo.price,
-      image: "/assets/nike-pegasus-43-1.webp",
+      image: "/assets/nike-pegasus-43-1.png",
     });
 
     setToastMessage(

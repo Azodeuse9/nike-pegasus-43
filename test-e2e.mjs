@@ -47,6 +47,12 @@ async function run() {
   console.log('✓ Product price text:', priceText);
 
   // 4. Verify all 26 variants in size grid
+  const toggleBtn = await page.$('[data-testid="toggle-all-sizes"]');
+  if (toggleBtn) {
+    await toggleBtn.click();
+    await new Promise(r => setTimeout(r, 200));
+  }
+
   const inventory = JSON.parse(fs.readFileSync('Pegasus 43 size and stock list.json', 'utf8'));
   const sizeGridTest = await page.evaluate((skus) => {
     const grid = document.querySelector('[data-testid="size-grid"]');
@@ -86,12 +92,12 @@ async function run() {
   const allSoldOutDisabled = soldOuts.every(i => sizeGridTest.disabledStates[i.sku] === true);
   console.log('✓ All 4 sold-out sizes are disabled in DOM:', allSoldOutDisabled);
 
-  // 6. Test Add to Bag disabled initially
+  // 6. Test Add to Bag button
   const initialAddToBag = await page.evaluate(() => {
-    const btn = document.querySelector('section[aria-label="Purchase action"] button');
+    const btn = document.querySelector('[data-testid="add-to-bag-button"]');
     return { disabled: btn ? btn.disabled : null, text: btn ? btn.textContent.trim() : null };
   });
-  console.log('✓ Add to Bag button initially disabled:', initialAddToBag.disabled, `("${initialAddToBag.text}")`);
+  console.log('✓ Add to Bag button initially:', initialAddToBag.disabled, `("${initialAddToBag.text}")`);
 
   // 7. Select a Low Stock Size (e.g. EU 42.5, SKU: HV7521-001-090, 3 left)
   console.log('Testing selection of low stock size HV7521-001-090...');
@@ -99,7 +105,7 @@ async function run() {
 
   const afterSelect = await page.evaluate(() => {
     const tile = document.querySelector('[data-testid="size-option-HV7521-001-090"]');
-    const btn = document.querySelector('section[aria-label="Purchase action"] button');
+    const btn = document.querySelector('[data-testid="add-to-bag-button"]');
     return {
       tileAriaChecked: tile ? tile.getAttribute('aria-checked') : null,
       btnDisabled: btn ? btn.disabled : null,
@@ -111,7 +117,7 @@ async function run() {
 
   // 8. Test Add to Bag click and Shopping Bag live counter
   console.log('Clicking Add to Bag...');
-  await page.click('section[aria-label="Purchase action"] button');
+  await page.click('[data-testid="add-to-bag-button"]');
 
   // Wait a moment for React state update
   await new Promise(r => setTimeout(r, 300));
