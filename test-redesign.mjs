@@ -97,12 +97,12 @@ async function testAll() {
   // 5. Verify Sold Out sizes are disabled and cannot be selected
   const soldOutSkus = inventory.filter(v => v.stock_status === 'sold_out').map(v => v.sku);
   const soldOutCheck = allTiles.filter(t => soldOutSkus.includes(t.sku)).every(t => t.disabled === true);
-  console.log(`✓ All 4 sold-out sizes (${inventory.filter(v => v.stock_status === 'sold_out').map(v => 'EU ' + v.size_eu).join(', ')}) disabled in DOM: ${soldOutCheck}`);
+  console.log(`✓ All ${soldOutSkus.length} sold-out sizes (${inventory.filter(v => v.stock_status === 'sold_out').map(v => 'EU ' + v.size_eu).join(', ')}) disabled in DOM: ${soldOutCheck}`);
 
   // Try clicking a sold out size (e.g. EU 44, SKU HV7521-001-100)
-  await page.click('[data-testid="size-option-HV7521-001-100"]');
+  await page.click('button[data-sku="HV7521-001-100"]');
   const soldOutSelected = await page.evaluate(() => {
-    const tile = document.querySelector('[data-testid="size-option-HV7521-001-100"]');
+    const tile = document.querySelector('button[data-sku="HV7521-001-100"]');
     return tile?.getAttribute('aria-checked');
   });
   console.log('✓ Sold-out size cannot be selected (aria-checked remains false):', soldOutSelected === 'false');
@@ -120,7 +120,7 @@ async function testAll() {
   await new Promise(r => setTimeout(r, 200));
 
   const usMenFirstSize = await page.evaluate(() => {
-    const firstTile = document.querySelector('[data-testid="size-option-HV7521-001-035"] span.text-base');
+    const firstTile = document.querySelector('button[data-sku="HV7521-001-035"] span.text-base');
     return firstTile?.textContent?.trim();
   });
   console.log('✓ US Men format active: First variant shows size:', usMenFirstSize, '(expected: 3.5)');
@@ -134,7 +134,7 @@ async function testAll() {
   await new Promise(r => setTimeout(r, 200));
 
   const usWomenFirstSize = await page.evaluate(() => {
-    const firstTile = document.querySelector('[data-testid="size-option-HV7521-001-035"] span.text-base');
+    const firstTile = document.querySelector('button[data-sku="HV7521-001-035"] span.text-base');
     return firstTile?.textContent?.trim();
   });
   console.log('✓ US Women format active: First variant shows size:', usWomenFirstSize, '(expected: 5)');
@@ -147,13 +147,13 @@ async function testAll() {
   });
   await new Promise(r => setTimeout(r, 200));
 
-  // 7. Select a Low Stock Size: EU 42.5 (SKU: HV7521-001-090, 3 left)
-  console.log('Selecting Low Stock Variant EU 42.5 (HV7521-001-090)...');
-  await page.click('[data-testid="size-option-HV7521-001-090"]');
+  // 7. Select a Low Stock Size: EU 42 (SKU: HV7521-001-085, 3 left)
+  console.log('Selecting Low Stock Variant EU 42 (HV7521-001-085)...');
+  await page.click('button[data-sku="HV7521-001-085"]');
   await new Promise(r => setTimeout(r, 200));
 
   const selectionState = await page.evaluate(() => {
-    const tile = document.querySelector('[data-testid="size-option-HV7521-001-090"]');
+    const tile = document.querySelector('button[data-sku="HV7521-001-085"]');
     const summary = document.querySelector('div[aria-live="polite"]');
     const addToBagBtn = document.querySelector('div.sticky button[type="button"]');
     return {
@@ -168,7 +168,7 @@ async function testAll() {
   console.log('✓ Add to Bag button enabled:', !selectionState.btnDisabled, `("${selectionState.btnText}")`);
 
   // 8. Verify switching format preserves the same selected SKU
-  console.log('Testing that switching format preserves selected SKU HV7521-001-090...');
+  console.log('Testing that switching format preserves selected SKU HV7521-001-085...');
   await page.evaluate(() => {
     const btns = Array.from(document.querySelectorAll('div[aria-label="Size format options"] button'));
     const mBtn = btns.find(b => b.textContent?.includes('US Men'));
@@ -177,7 +177,7 @@ async function testAll() {
   await new Promise(r => setTimeout(r, 200));
 
   const afterFormatSwitch = await page.evaluate(() => {
-    const tile = document.querySelector('[data-testid="size-option-HV7521-001-090"]');
+    const tile = document.querySelector('button[data-sku="HV7521-001-085"]');
     const summary = document.querySelector('div[aria-live="polite"]');
     return {
       ariaChecked: tile?.getAttribute('aria-checked'),
@@ -185,7 +185,7 @@ async function testAll() {
     };
   });
   console.log('✓ Selected tile still checked after format switch:', afterFormatSwitch.ariaChecked === 'true');
-  console.log('✓ Summary updated to US Men 9 while preserving variant:', afterFormatSwitch.summaryText?.includes('US Men 9'));
+  console.log('✓ Summary updated to US Men 8.5 while preserving variant:', afterFormatSwitch.summaryText?.includes('US Men 8.5'));
 
   // 9. Click Add to Bag
   console.log('Clicking Add to Bag button...');
@@ -216,7 +216,7 @@ async function testAll() {
     };
   });
   console.log('✓ Bag drawer opened:', drawerContent.isOpen);
-  console.log('✓ Bag drawer contains correct product and SKU HV7521-001-090:', drawerContent.text?.includes('HV7521-001-090'));
+  console.log('✓ Bag drawer contains correct product and SKU HV7521-001-085:', drawerContent.text?.includes('HV7521-001-085'));
 
   // Close bag drawer
   await page.click('button[aria-label="Close shopping bag"]');

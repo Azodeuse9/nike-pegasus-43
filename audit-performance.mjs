@@ -267,7 +267,7 @@ async function runAudit() {
 
   console.log(`Total variants audited: ${buttonMetrics.length} / 26`);
   console.log(`- All variants present in DOM: ${missing.length === 0 ? '✓ PASS' : '✗ FAIL'}`);
-  console.log(`- All 4 sold-out sizes disabled: ${soldOutUnchecked.length === 0 ? '✓ PASS' : '✗ FAIL'}`);
+  console.log(`- All ${inventory.filter(v => v.stock_status === 'sold_out').length} sold-out sizes disabled: ${soldOutUnchecked.length === 0 ? '✓ PASS' : '✗ FAIL'}`);
   console.log(`- All 26 buttons >= 44x44 CSS px: ${sizeFailures.length === 0 ? '✓ PASS' : '✗ FAIL'}`);
 
   const minW = Math.min(...buttonMetrics.map(b => b.width));

@@ -63,7 +63,7 @@ async function run() {
     const tileSizes = [];
 
     for (const item of skus) {
-      const tile = document.querySelector(`[data-testid="size-option-${item.sku}"]`);
+      const tile = document.querySelector(`button[data-sku="${item.sku}"]`);
       if (!tile) {
         missing.push(item.sku);
       } else {
@@ -90,7 +90,7 @@ async function run() {
   // 5. Verify sold-out disabled states
   const soldOuts = inventory.filter(i => i.stock_status === 'sold_out');
   const allSoldOutDisabled = soldOuts.every(i => sizeGridTest.disabledStates[i.sku] === true);
-  console.log('✓ All 4 sold-out sizes are disabled in DOM:', allSoldOutDisabled);
+  console.log(`✓ All ${soldOuts.length} sold-out sizes are disabled in DOM:`, allSoldOutDisabled);
 
   // 6. Test Add to Bag button
   const initialAddToBag = await page.evaluate(() => {
@@ -99,12 +99,12 @@ async function run() {
   });
   console.log('✓ Add to Bag button initially:', initialAddToBag.disabled, `("${initialAddToBag.text}")`);
 
-  // 7. Select a Low Stock Size (e.g. EU 42.5, SKU: HV7521-001-090, 3 left)
-  console.log('Testing selection of low stock size HV7521-001-090...');
-  await page.click('[data-testid="size-option-HV7521-001-090"]');
+  // 7. Select a Low Stock Size (e.g. EU 42, SKU: HV7521-001-085, 3 left)
+  console.log('Testing selection of low stock size HV7521-001-085...');
+  await page.click('button[data-sku="HV7521-001-085"]');
 
   const afterSelect = await page.evaluate(() => {
-    const tile = document.querySelector('[data-testid="size-option-HV7521-001-090"]');
+    const tile = document.querySelector('button[data-sku="HV7521-001-085"]');
     const btn = document.querySelector('[data-testid="add-to-bag-button"]');
     return {
       tileAriaChecked: tile ? tile.getAttribute('aria-checked') : null,

@@ -154,13 +154,13 @@ Additional information is organised into expandable sections to keep the page ma
 
 ## Inventory & Data Handling
 
-The supplied `Pegasus 43 size and stock list.json` file is the source of truth for product variants. The implementation preserves all 26 variants and their original `display_order`.
+The supplied `Pegasus Size and Stock Snapshot, 8 December 2026.json` file is the source of truth for product variants. The implementation preserves all 26 variants and their original `display_order`.
 
 | Inventory Status | Variants |
 |---|---|
-| In Stock | 17 |
-| Low Stock | 5 |
-| Sold Out | 4 |
+| In Stock | 10 |
+| Low Stock | 7 |
+| Sold Out | 9 |
 | **Total** | **26** |
 
 **A few important implementation decisions:**
@@ -337,12 +337,12 @@ All measurements were captured via Chrome DevTools Protocol (CDP) under the Web 
   - **Latency:** `562.5 ms`
   - **Download Throughput:** `1474.56 Kbps` (188,743.68 bytes/sec)
   - **Upload Throughput:** `675 Kbps` (86,400.00 bytes/sec)
-- **Continuous RAF Frames Measured:** 347 frames
+- **Continuous RAF Frames Measured:** 742 frames
 - **First Observed Size-Grid Y Position:** **`763px`**
 - **Final Size-Grid Y Position:** **`763px`**
 - **Maximum Vertical Displacement:** **`0px`**
 - **Cumulative Layout Shift (CLS):** **`0.0000`**
-- **Trace Events Recorded:** **59,389 events**
+- **Trace Events Recorded:** **84,376 events**
 - **Lighthouse Mobile Score:** **94 / 100** (exceeds budget target of 90)
 
 #### Audit Evidence Files
@@ -369,7 +369,7 @@ First, inspect:
 - app/globals.css
 - The current product page loading structure.
 
-The existing audit reports 0px size-grid movement across 347 frames and CLS 0.0000.
+The existing audit reports 0px size-grid movement across 742 frames and CLS 0.0000.
 
 Now investigate the elements above the size grid individually:
 1. Product gallery image

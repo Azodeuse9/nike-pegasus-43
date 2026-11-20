@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-20T05:37:16.309Z",
+  "timestamp": "2026-11-20T06:37:01.431Z",
   "speedBudget": {
     "performance_score_min": 90,
     "size_grid_shift_px_max": 0,
@@ -15,7 +15,7 @@
     "cpuSlowdown": "4x"
   },
   "continuousLayoutStability": {
-    "rafFramesMeasured": 347,
+    "rafFramesMeasured": 742,
     "firstObservedY": 763,
     "finalY": 763,
     "minY": 763,
@@ -26,102 +26,102 @@
     "positionsSample": [
       {
         "frame": 0,
-        "time": 2290.9,
+        "time": 2428,
         "y": 763
       },
       {
         "frame": 1,
-        "time": 2360.9,
+        "time": 2493.3,
         "y": 763
       },
       {
         "frame": 2,
-        "time": 2649.2,
+        "time": 2710.4,
         "y": 763
       },
       {
         "frame": 3,
-        "time": 2664.9,
+        "time": 2730.1,
         "y": 763
       },
       {
         "frame": 4,
-        "time": 2676.8,
+        "time": 2744.7,
         "y": 763
       },
       {
         "frame": 5,
-        "time": 2685.8,
+        "time": 2751.2,
         "y": 763
       },
       {
         "frame": 6,
-        "time": 2702.8,
+        "time": 2752.8,
         "y": 763
       },
       {
         "frame": 7,
-        "time": 2718.9,
+        "time": 2759.8,
         "y": 763
       },
       {
         "frame": 8,
-        "time": 2735.8,
+        "time": 2767.4,
         "y": 763
       },
       {
         "frame": 9,
-        "time": 2753.9,
+        "time": 2775.9,
         "y": 763
       },
       {
         "frame": 10,
-        "time": 2769.2,
+        "time": 2780.8,
         "y": 763
       },
       {
         "frame": 11,
-        "time": 2785.1,
+        "time": 2788.2,
         "y": 763
       },
       {
         "frame": 12,
-        "time": 2802,
+        "time": 2794.5,
         "y": 763
       },
       {
         "frame": 13,
-        "time": 2819.4,
+        "time": 2802,
         "y": 763
       },
       {
         "frame": 14,
-        "time": 2835.8,
+        "time": 2808.9,
         "y": 763
       },
       {
         "frame": 15,
-        "time": 2851.9,
+        "time": 2816.3,
         "y": 763
       },
       {
         "frame": 16,
-        "time": 2868.9,
+        "time": 2822.5,
         "y": 763
       },
       {
         "frame": 17,
-        "time": 2886.9,
+        "time": 2830.9,
         "y": 763
       },
       {
         "frame": 18,
-        "time": 2903.1,
+        "time": 2838.3,
         "y": 763
       },
       {
         "frame": 19,
-        "time": 2919,
+        "time": 2843.6,
         "y": 763
       }
     ]
@@ -147,50 +147,60 @@
   },
   "traceAnalysis": {
     "traceFile": "performance-evidence/chrome-performance-trace.json",
-    "totalEvents": 59389,
-    "beginFrameCount": 540,
+    "totalEvents": 84376,
+    "beginFrameCount": 1272,
     "drawFrameCount": 57,
-    "droppedFrameCount": 43,
-    "longTasksCount": 8,
+    "droppedFrameCount": 158,
+    "longTasksCount": 10,
     "longTasks": [
       {
-        "duration": 858,
-        "startTime": 1467.8999999999069,
+        "duration": 975,
+        "startTime": 1493.7000000001863,
         "name": "self"
       },
       {
-        "duration": 978,
-        "startTime": 7552.299999999814,
+        "duration": 1083,
+        "startTime": 7596.0999999996275,
         "name": "self"
       },
       {
-        "duration": 98,
-        "startTime": 8573.199999999953,
+        "duration": 120,
+        "startTime": 8723.5,
         "name": "self"
       },
       {
-        "duration": 113,
-        "startTime": 9101.199999999953,
+        "duration": 140,
+        "startTime": 9256.5,
         "name": "self"
       },
       {
-        "duration": 148,
-        "startTime": 9967.199999999953,
+        "duration": 61,
+        "startTime": 9508.700000000186,
         "name": "self"
       },
       {
-        "duration": 112,
-        "startTime": 10292.899999999907,
+        "duration": 53,
+        "startTime": 9978.099999999627,
         "name": "self"
       },
       {
-        "duration": 63,
-        "startTime": 10461.799999999814,
+        "duration": 129,
+        "startTime": 10155,
         "name": "self"
       },
       {
-        "duration": 80,
-        "startTime": 10534.299999999814,
+        "duration": 100,
+        "startTime": 10506.099999999627,
+        "name": "self"
+      },
+      {
+        "duration": 55,
+        "startTime": 10656,
+        "name": "self"
+      },
+      {
+        "duration": 85,
+        "startTime": 10722.200000000186,
         "name": "self"
       }
     ]

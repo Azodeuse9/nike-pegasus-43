@@ -37,8 +37,8 @@ async function checkSticky() {
   await page.screenshot({ path: 'public/sticky_initial_844.png' });
 
   // Select a size and check state
-  console.log('\nSelecting a size: EU 42.5 (HV7521-001-090)...');
-  await page.click('[data-testid="size-option-HV7521-001-090"]');
+  console.log('\nSelecting a size: EU 42 (HV7521-001-085)...');
+  await page.click('[data-testid="size-option-HV7521-001-085"]');
   await new Promise(r => setTimeout(r, 200));
 
   const afterSelectMetrics = await page.evaluate(() => {
