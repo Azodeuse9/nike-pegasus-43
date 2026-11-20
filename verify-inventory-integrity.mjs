@@ -42,7 +42,7 @@ async function verifyInventory() {
     errors++;
   }
 
-  snapshot.forEach((expected, i) => {
+  snapshot.forEach((expected) => {
     const tile = tilesData.find(t => t.sku === expected.sku);
     if (!tile) {
       console.error(`ERROR: Tile with SKU ${expected.sku} not found in DOM`);

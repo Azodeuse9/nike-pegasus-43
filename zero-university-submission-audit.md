@@ -14,7 +14,7 @@ Configured in [`speed-budget.json`](./speed-budget.json):
 
 | Metric | Budget Target | Actual Measurement | Status |
 | :--- | :--- | :--- | :--- |
-| `performance_score_min` | **≥ 90** | **94 / 100** (Fresh Lighthouse Mobile Run — Exact YAML Slow 4G Profile) | **PASS** |
+| `performance_score_min` | **≥ 90** | **90 / 100** (Fresh Live Vercel Production Run — Exact YAML Slow 4G Profile) | **PASS** |
 | `size_grid_shift_px_max` | **0px** | **0.00px** maximum displacement across 742 continuous RAF frames | **PASS** |
 | `size_button_min_px` | **≥ 44px** | **77.75px × 66.00px** minimum across all 26 buttons | **PASS** |
 
@@ -122,12 +122,12 @@ Executed against the live production deployment ([`https://nike-pegasus-43.verce
 
 ### Actual Measured Results
 
-- **Lighthouse Mobile Performance Score:** **94 / 100** ✅ (Exceeds `performance_score_min: 90`)
-- **First Contentful Paint (FCP):** `1.3 s` (1,291 ms)
-- **Largest Contentful Paint (LCP):** `2.8 s` (2,787 ms)
-- **Total Blocking Time (TBT):** `130 ms` (132.5 ms)
+- **Lighthouse Mobile Performance Score:** **90 / 100** ✅ (Meets/exceeds `performance_score_min: 90`)
+- **First Contentful Paint (FCP):** `1.3 s` (1,344 ms)
+- **Largest Contentful Paint (LCP):** `3.0 s` (2,999 ms)
+- **Total Blocking Time (TBT):** `230 ms` (226.5 ms)
 - **Cumulative Layout Shift (CLS):** **`0`** (`0.0000`)
-- **Speed Index:** `2.4 s` (2,374 ms)
+- **Speed Index:** `2.0 s` (2,044 ms)
 
 ---
 
@@ -161,7 +161,7 @@ Executed against the live production deployment ([`https://nike-pegasus-43.verce
 | `speed-budget.json` Validation | Target values exact | **PASS** |
 | Continuous Size Grid Movement | `0.00px` across 742 frames | **PASS** |
 | Minimum Button Dimensions | `77.75px × 66.00px` (min 44px) | **PASS** |
-| Lighthouse Mobile Performance (YAML Profile) | `94 / 100` | **PASS** |
+| Lighthouse Mobile Performance (YAML Profile) | `90 / 100` | **PASS** |
 | Real Performance Trace | 84,376 events in `chrome-performance-trace.json` | **PASS** |
 | Dropped Frames | 158 dropped frames during 4x CPU scroll burst | **EVIDENCED** |
 | TypeScript Typecheck | `npx tsc --noEmit` | **PASS** |

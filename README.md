@@ -343,7 +343,7 @@ All measurements were captured via Chrome DevTools Protocol (CDP) under the Web 
 - **Maximum Vertical Displacement:** **`0px`**
 - **Cumulative Layout Shift (CLS):** **`0.0000`**
 - **Trace Events Recorded:** **84,376 events**
-- **Lighthouse Mobile Score:** **94 / 100** (exceeds budget target of 90)
+- **Lighthouse Mobile Score:** **90 / 100** (meets/exceeds budget target of 90 on live Vercel production)
 
 #### Audit Evidence Files
 - **Chrome CDP Performance Trace:** [`./performance-evidence/chrome-performance-trace.json`](./performance-evidence/chrome-performance-trace.json)
