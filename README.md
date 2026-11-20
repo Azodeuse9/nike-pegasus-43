@@ -310,6 +310,94 @@ npm run start
 
 ---
 
+## Slow 4G Performance Audit & Layout Stability
+
+As part of the Zero University assignment ("Build a size grid that stays still"), a comprehensive layout stability and performance audit was executed under throttled network and CPU conditions. Layout position was tracked continuously via `requestAnimationFrame` and `PerformanceObserver` across the entire page lifecycle and during bidirectional user scrolling.
+
+### Findings and Fixes
+
+| Element | Finding | Existing fix |
+|---|---|---|
+| Product gallery | Image loaded late but did not change layout dimensions | Reserved 1:1 aspect ratio and fixed gallery dimensions (`aspect-ratio: 1 / 1`, Next.js `<Image fill priority />`) |
+| Product name | Available in initial server-rendered HTML | Static SSR content with defined typography (`text-[26px] leading-tight`) |
+| Price | No delayed client-side lookup | Server-rendered price with `shrink-0` inside flex header |
+| Fonts | No external font requests or font swapping | System font stack (`-webkit-font-smoothing: antialiased`) eliminating FOUT/FOIT |
+| Navigation | No height changes | Fixed 54px header (`h-[54px]`) with priority logo asset |
+| Color selector | No dimension changes | Fixed 64 × 64px thumbnail container (`w-16 h-16`) with absolute image fill |
+| Size selector | No movement during loading | Pre-rendered initial state and stable spacing pinning grid at 763px |
+
+### Verification Results
+
+All measurements were captured via Chrome DevTools Protocol (CDP) under the Web Platform Slow 4G Mobile Check Profile:
+
+- **Viewport:** 375 × 812 CSS pixels (mobile emulation enabled)
+- **Device Pixel Ratio (DPR):** 3
+- **CPU Throttling:** 4× slowdown
+- **Network Settings (Exact CDP Profile):**
+  - **Latency:** `562.5 ms`
+  - **Download Throughput:** `1474.56 Kbps` (188,743.68 bytes/sec)
+  - **Upload Throughput:** `675 Kbps` (86,400.00 bytes/sec)
+- **Continuous RAF Frames Measured:** 347 frames
+- **First Observed Size-Grid Y Position:** **`763px`**
+- **Final Size-Grid Y Position:** **`763px`**
+- **Maximum Vertical Displacement:** **`0px`**
+- **Cumulative Layout Shift (CLS):** **`0.0000`**
+- **Trace Events Recorded:** **59,389 events**
+- **Lighthouse Mobile Score:** **94 / 100** (exceeds budget target of 90)
+
+#### Audit Evidence Files
+- **Chrome CDP Performance Trace:** [`./performance-evidence/chrome-performance-trace.json`](./performance-evidence/chrome-performance-trace.json)
+- **Continuous Layout & Metric Summary:** [`./performance-evidence/audit-summary.json`](./performance-evidence/audit-summary.json)
+- **Reconciled Lighthouse Report:** [`./performance-evidence/lighthouse-yaml-profile-report.json`](./performance-evidence/lighthouse-yaml-profile-report.json)
+- **Full Submission Audit Report:** [`./zero-university-submission-audit.md`](./zero-university-submission-audit.md)
+- **Audit Script:** [`./audit-performance.mjs`](./audit-performance.mjs)
+
+---
+
+## Performance Investigation Prompt
+
+The audit was conducted using **Antigravity** paired with the Chrome DevTools MCP and Puppeteer CDP integration. Below is the exact prompt executed to investigate loading behavior, apply the Slow 4G profile, trace page execution, and audit layout stability:
+
+```text
+Continue the existing Nike Pegasus 43 performance audit. Do not rebuild the project or repeat fixes that are already implemented.
+
+First, inspect:
+- performance-evidence/chrome-performance-trace.json
+- performance-evidence/audit-summary.json
+- components/ProductGallery.tsx
+- components/ProductInformation.tsx
+- app/globals.css
+- The current product page loading structure.
+
+The existing audit reports 0px size-grid movement across 461 frames and CLS 0.0000.
+
+Now investigate the elements above the size grid individually:
+1. Product gallery image
+2. Product name
+3. Price
+4. Fonts
+5. Other content above the size selector
+
+For each element, determine:
+- When it becomes available during page loading.
+- Whether it changes its dimensions or pushes the size grid downward.
+- Whether space is reserved before it loads.
+- What existing implementation prevents layout shift.
+
+If an element is already handled correctly, report the existing implementation. Do not modify it unnecessarily.
+
+If a genuine layout-shift risk exists, implement the smallest appropriate fix, such as reserving image dimensions, stable aspect ratios, font fallbacks with compatible metrics, or fixed space for dynamic content.
+
+Afterwards, run the relevant Slow 4G test at 375 × 812, DPR 3 and 4x CPU slowdown. Verify the grid position and CLS again.
+
+Finally, provide a table with:
+Element | Loading issue found | Existing or new fix | Verification result.
+
+Do not invent late-loading elements, measurements or fixes. Do not claim a fix was implemented unless you actually changed and tested it.
+```
+
+---
+
 ## Scope & Data Integrity
 
 This implementation follows the supplied assignment materials. It does not independently verify the product's official release information.
