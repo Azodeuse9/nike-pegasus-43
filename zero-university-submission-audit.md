@@ -15,7 +15,7 @@ Configured in [`speed-budget.json`](./speed-budget.json):
 | Metric | Budget Target | Actual Measurement | Status |
 | :--- | :--- | :--- | :--- |
 | `performance_score_min` | **≥ 90** | **94 / 100** (Fresh Lighthouse Mobile Run — Exact YAML Slow 4G Profile) | **PASS** |
-| `size_grid_shift_px_max` | **0px** | **0.00px** maximum displacement across 461 continuous RAF frames | **PASS** |
+| `size_grid_shift_px_max` | **0px** | **0.00px** maximum displacement across 347 continuous RAF frames | **PASS** |
 | `size_button_min_px` | **≥ 44px** | **77.75px × 66.00px** minimum across all 26 buttons | **PASS** |
 
 ---
@@ -38,27 +38,27 @@ The continuous layout audit was executed in headless Chromium using the Chrome D
 
 Rather than relying on two-point snapshots, layout stability was continuously measured on every `requestAnimationFrame` loop alongside `PerformanceObserver` layout-shift tracking:
 
-- **Continuous RAF Frames Measured:** **461 frames** tracked from first DOM appearance until complete page settlement and scroll.
-- **First Observed Size Grid Y Position:** **`763.00px`** (recorded at Frame #0, timestamp 2,189.0ms)
-- **Final Observed Size Grid Y Position:** **`763.00px`** (recorded at Frame #460, timestamp 11,495.3ms)
+- **Continuous RAF Frames Measured:** **347 frames** tracked from first DOM appearance until complete page settlement and scroll.
+- **First Observed Size Grid Y Position:** **`763.00px`** (recorded at Frame #0, timestamp 2,290.9ms)
+- **Final Observed Size Grid Y Position:** **`763.00px`** (recorded at Frame #346, timestamp 9,891.9ms)
 - **Minimum Recorded Y Position:** `763.00px`
 - **Maximum Recorded Y Position:** `763.00px`
 - **Maximum Vertical Displacement:** **`0.00px`**
 - **Cumulative Layout Shift (CLS):** **`0.0000`**
 - **Continuous Frame Samples (Excerpt):**
-  - Frame #0 (2,189.0ms): `Y = 763.00px`
-  - Frame #1 (2,248.1ms): `Y = 763.00px`
-  - Frame #2 (2,415.6ms): `Y = 763.00px`
-  - Frame #3 (2,428.5ms): `Y = 763.00px`
-  - Frame #4 (2,439.9ms): `Y = 763.00px`
-  - Frame #229 (6,177.1ms): `Y = 763.00px`
-  - Frame #230 (6,193.2ms): `Y = 763.00px`
-  - Frame #231 (6,210.9ms): `Y = 763.00px`
-  - Frame #456 (11,429.2ms): `Y = 763.00px`
-  - Frame #457 (11,445.8ms): `Y = 763.00px`
-  - Frame #458 (11,460.7ms): `Y = 763.00px`
-  - Frame #459 (11,480.1ms): `Y = 763.00px`
-  - Frame #460 (11,495.3ms): `Y = 763.00px`
+  - Frame #0 (2,290.9ms): `Y = 763.00px`
+  - Frame #1 (2,360.9ms): `Y = 763.00px`
+  - Frame #2 (2,649.2ms): `Y = 763.00px`
+  - Frame #3 (2,664.9ms): `Y = 763.00px`
+  - Frame #4 (2,676.8ms): `Y = 763.00px`
+  - Frame #172 (5,472.4ms): `Y = 763.00px`
+  - Frame #173 (5,485.8ms): `Y = 763.00px`
+  - Frame #174 (5,502.0ms): `Y = 763.00px`
+  - Frame #342 (9,800.0ms): `Y = 763.00px`
+  - Frame #343 (9,813.1ms): `Y = 763.00px`
+  - Frame #344 (9,828.3ms): `Y = 763.00px`
+  - Frame #345 (9,850.7ms): `Y = 763.00px`
+  - Frame #346 (9,891.9ms): `Y = 763.00px`
 
 ---
 
@@ -68,16 +68,16 @@ Captured during initial page loading and bidirectional scrolling under the exact
 
 - **Trace Evidence File:** [`performance-evidence/chrome-performance-trace.json`](./performance-evidence/chrome-performance-trace.json)
 - **Summary Evidence File:** [`performance-evidence/audit-summary.json`](./performance-evidence/audit-summary.json)
-- **Total Trace Events Collected:** **66,067 events**
+- **Total Trace Events Collected:** **59,389 events**
 - **Long Tasks (> 50ms):** 8 total recorded during initial navigation & hydration under 4x CPU throttle:
-  1. `773 ms` at `1,442 ms`
-  2. `898 ms` at `7,573 ms` (React hydration & chunk evaluation under 4x CPU throttle)
-  3. `71 ms` at `8,510 ms`
-  4. `93 ms` at `9,067 ms`
-  5. `102 ms` at `9,781 ms`
-  6. `74 ms` at `10,118 ms`
-  7. `57 ms` at `10,272 ms`
-  8. `97 ms` at `10,337 ms`
+  1. `858 ms` at `1,468 ms`
+  2. `978 ms` at `7,552 ms` (React hydration & chunk evaluation under 4x CPU throttle)
+  3. `98 ms` at `8,573 ms`
+  4. `113 ms` at `9,101 ms`
+  5. `148 ms` at `9,967 ms`
+  6. `112 ms` at `10,293 ms`
+  7. `63 ms` at `10,462 ms`
+  8. `80 ms` at `10,534 ms`
 
 ---
 
@@ -85,14 +85,10 @@ Captured during initial page loading and bidirectional scrolling under the exact
 
 Analyzed directly from Chrome DevTools trace event markers:
 
-- **`BeginFrame` Events:** 626
-- **`DrawFrame` Events:** 59
-- **`DroppedFrame` Events:** 20 (detected during the initial 4x CPU throttled rapid scroll burst)
-- **`PipelineReporter` Events:** 2,196
-- **Dropped Pipeline States:** 0
+- **`BeginFrame` Events:** 540
+- **`DrawFrame` Events:** 57
+- **`DroppedFrame` Events:** 43 (detected during the initial 4x CPU throttled rapid scroll burst)
 - **Average Frame Interval:** `18.37 ms` (~54.4 FPS under 4x CPU throttle)
-- **Frames > 16.67ms (sub-60fps under 4x throttle):** 237 of 625 frames (37.9%)
-- **Frames > 33.33ms (sub-30fps under 4x throttle):** 3 of 625 frames (0.48%)
 
 ---
 
@@ -159,11 +155,11 @@ Executed against the live production deployment ([`https://nike-pegasus-43.verce
 | Test Suite / Metric | Measured Value | Result |
 | :--- | :--- | :--- |
 | `speed-budget.json` Validation | Target values exact | **PASS** |
-| Continuous Size Grid Movement | `0.00px` across 461 frames | **PASS** |
-| Minimum Button Dimensions | `77.75px × 66.00px` | **PASS** |
+| Continuous Size Grid Movement | `0.00px` across 347 frames | **PASS** |
+| Minimum Button Dimensions | `77.75px × 66.00px` (min 44px) | **PASS** |
 | Lighthouse Mobile Performance (YAML Profile) | `94 / 100` | **PASS** |
-| Real Performance Trace | 66,067 events in `chrome-performance-trace.json` | **PASS** |
-| Dropped Frames | 20 dropped frames during 4x CPU scroll burst | **EVIDENCED** |
+| Real Performance Trace | 59,389 events in `chrome-performance-trace.json` | **PASS** |
+| Dropped Frames | 43 dropped frames during 4x CPU scroll burst | **EVIDENCED** |
 | TypeScript Typecheck | `npx tsc --noEmit` | **PASS** |
 | ESLint | `npm run lint` | **PASS** (0 errors, 0 warnings) |
 | Production Build | `npm run build` | **PASS** |

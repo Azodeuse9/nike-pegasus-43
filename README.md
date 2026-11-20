@@ -369,7 +369,7 @@ First, inspect:
 - app/globals.css
 - The current product page loading structure.
 
-The existing audit reports 0px size-grid movement across 461 frames and CLS 0.0000.
+The existing audit reports 0px size-grid movement across 347 frames and CLS 0.0000.
 
 Now investigate the elements above the size grid individually:
 1. Product gallery image
