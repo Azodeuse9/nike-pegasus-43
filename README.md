@@ -22,6 +22,16 @@ The visual direction takes inspiration from Nike's digital shopping experience, 
 
 ---
 
+## Live Mobile Experience ([nike-pegasus-43.vercel.app](https://nike-pegasus-43.vercel.app))
+
+Real mobile device captures from the live Vercel production deployment running the reconciled 8 December 2026 inventory snapshot:
+
+| 1. Hero Gallery & Header | 2. Size Selector (EU 40 Selected) | 3. Bag Confirmation Toast | 4. Shopping Bag Drawer |
+|:---:|:---:|:---:|:---:|
+| <img src="docs/screenshots/live-01-gallery-hero.jpg" width="200" alt="Live Vercel mobile capture — Hero product gallery, centered Nike header, and sticky Select Size button"> | <img src="docs/screenshots/live-02-size-selector-selected.jpg" width="200" alt="Live Vercel mobile capture — Size grid with EU 40 selected, in-stock badge, and active Add to Bag button"> | <img src="docs/screenshots/live-03-toast-confirmation.jpg" width="200" alt="Live Vercel mobile capture — Toast notification confirming item added to bag"> | <img src="docs/screenshots/live-04-shopping-bag-drawer.jpg" width="200" alt="Live Vercel mobile capture — Shopping Bag drawer showing item, size details, SKU HV7521-001-070, and checkout"> |
+
+---
+
 ## Design Preview
 
 ### 01 — Product Gallery & Overview
