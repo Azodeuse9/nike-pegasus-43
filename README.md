@@ -408,6 +408,83 @@ Do not invent late-loading elements, measurements or fixes. Do not claim a fix w
 
 ---
 
+## Vercel Deployment & Mobile Lighthouse Audit Prompt
+
+The Nike Pegasus 43 product page was deployed to Vercel through its existing GitHub integration. The production deployment was then tested using Google Lighthouse against the live URL rather than a local development server.
+
+The following is a reconstructed reproduction prompt documenting the deployment and mobile performance testing workflow used for this project. It is provided so the deployment and audit process can be understood and repeated.
+
+### Deployment & Lighthouse Prompt
+
+```text
+Inspect the existing Nike Pegasus 43 Next.js project and its Vercel configuration.
+
+Verify that the GitHub repository is connected to the correct Vercel project and that the main branch is configured for production deployment.
+
+Deploy the latest main branch to Vercel. Verify that the production deployment is READY and that the live URL returns HTTP 200.
+
+Run Google Lighthouse against the live production URL:
+https://nike-pegasus-43.vercel.app
+
+Do not use localhost for the Lighthouse audit.
+
+Configure the mobile audit with:
+- Viewport: 375 × 812 CSS pixels
+- Device pixel ratio: 3
+- Mobile emulation: enabled
+- CPU slowdown: 4×
+- Slow 4G network throttling
+
+Use the saved network configuration:
+- requestLatencyMs: 562.5
+- downloadThroughputKbps: 1474.56
+- uploadThroughputKbps: 675
+- rttMs: 150
+- throughputKbps: 1638.4
+- cpuSlowdownMultiplier: 4
+
+Collect the Lighthouse Performance score, FCP, LCP,
+TBT, Speed Index and CLS.
+
+The minimum required mobile Performance score is 90/100.
+
+Save the complete Lighthouse JSON report in:
+performance-evidence/lighthouse-yaml-profile-report.json
+
+Document the production URL, audit timestamp, test
+configuration, measured metrics and any identified issues.
+
+Verify the saved report and update README.md without
+removing existing screenshots or documentation.
+
+Do not fabricate results or claim unverified deployment
+or performance checks.
+```
+
+### Production Deployment
+
+| Item | Verified project information |
+|---|---|
+| Production URL | https://nike-pegasus-43.vercel.app |
+| GitHub repository | https://github.com/Azodeuse9/nike-pegasus-43 |
+| Deployment platform | Vercel |
+| Source branch | main |
+| Lighthouse target | Mobile |
+| Lighthouse Performance score | 90 / 100 |
+| Minimum required score | 90 / 100 |
+
+### Lighthouse Evidence
+
+The production Lighthouse report is stored in:
+
+[`performance-evidence/lighthouse-yaml-profile-report.json`](./performance-evidence/lighthouse-yaml-profile-report.json)
+
+The report contains the measured Lighthouse results for the live production URL, including the mobile Performance score and performance metrics.
+
+The deployment and Lighthouse workflow is documented separately from the Performance Investigation Prompt, which focuses on identifying and preventing size-grid layout movement.
+
+---
+
 ## Scope & Data Integrity
 
 This implementation follows the supplied assignment materials. It does not independently verify the product's official release information.
